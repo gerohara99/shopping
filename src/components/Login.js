@@ -1,12 +1,18 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
-import Loader from './Loader'
-import firebase from 'firebase'
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
+import Loader from './Loader';
+import firebase from 'firebase';
 
 const LoginButton = MKButton.coloredButton()
     .withText('LOGIN')
-    .build()
+    .build();
 
 const styles = StyleSheet.create({
     form: {
@@ -31,7 +37,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         fontSize: 15,
         color: 'red',
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
 });
 
@@ -44,8 +50,8 @@ export default class Login extends Component {
   };
 
   onButtonPress() {
-      const { email, password } = this.state
-      this.setState({error: '', loading: true})
+      const { email, password } = this.state;
+      this.setState({error: '', loading: true});
 
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then(this.onAuthSuccess.bind(this))
@@ -53,7 +59,7 @@ export default class Login extends Component {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(this.onAuthSuccess.bind(this))
                 .catch(this.onAuthFailed.bind(this));
-        })
+        });
   }
 
   onAuthSuccess() {
@@ -61,8 +67,8 @@ export default class Login extends Component {
         email: '',
         password: '',
         error: '',
-        loading: false,
-      })
+        loading: false, 
+      });
   }
 
 onAuthFailed() {
@@ -85,14 +91,14 @@ onAuthFailed() {
     return (
       <View style={form}>
         <Text>Login or create an account</Text>
-        <MKTextField
+        <MKTextField 
             text={this.state.email}
             onTextChange={email => this.setState({ email })}
             textInputStyle={fieldStyles}
             placeholder={'Email...'}
             tintColor={MKColor.Teal}
         />
-        <MKTextField
+        <MKTextField 
             text={this.state.password}
             onTextChange={password => this.setState({ password })}
             textInputStyle={fieldStyles}
@@ -107,6 +113,6 @@ onAuthFailed() {
             {this.renderLoader()}
         </View>
       </View>
-    )
+    );
   }
 }
