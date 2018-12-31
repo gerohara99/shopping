@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 
 const PeopleItem = (props) => {
     return (
-      <TouchableWithoutFeedback onPress={() => props.selectPerson(people)}>
+      <TouchableWithoutFeedback onPress={() => props.selectPerson(props.people)}>
         <View style={[theme.cardStyle, styles.card]}>
           <Image
             source={{ uri: '/Users/Ger/github/crm/src/images/background.jpg'}}
