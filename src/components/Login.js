@@ -67,7 +67,7 @@ export default class Login extends Component {
         email: '',
         password: '',
         error: '',
-        loading: false, 
+        loading: false,
       });
   }
 
@@ -91,14 +91,14 @@ onAuthFailed() {
     return (
       <View style={form}>
         <Text>Login or create an account</Text>
-        <MKTextField 
+        <MKTextField
             text={this.state.email}
             onTextChange={email => this.setState({ email })}
             textInputStyle={fieldStyles}
             placeholder={'Email...'}
             tintColor={MKColor.Teal}
         />
-        <MKTextField 
+        <MKTextField
             text={this.state.password}
             onTextChange={password => this.setState({ password })}
             textInputStyle={fieldStyles}
