@@ -56,11 +56,13 @@ export default class App extends Component {
           return <Loader size="large" />;
       }
     }
-  render() {
-    return (
-      <Provider store={store}>
-            {this.renderInitialView()}
-      </Provider>
-    );
+    render() {
+      return (
+        <Provider store={store}>
+            <View style={styles.container}>
+              {this.renderInitialView()}
+            </View>
+        </Provider>
+      );
   }
 }
