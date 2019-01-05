@@ -59,9 +59,7 @@ export default class App extends Component {
     render() {
       return (
         <Provider store={store}>
-            <View style={styles.container}>
               {this.renderInitialView()}
-            </View>
         </Provider>
       );
   }
