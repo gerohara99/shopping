@@ -8,11 +8,14 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import Login from './Login';
 import Loader from './Loader';
 import Navigation from './Navigation';
 import reducers from '../reducers/PeopleReducer';
+import thunk from 'redux-thunk'
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const styles = StyleSheet.create({
   container: {
@@ -21,9 +24,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-});
+})
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  reducers,
+  composeEnhancer(applyMiddleware(thunk)),
+)
 
 export default class App extends Component {
   state = { loggedIn: null};
@@ -41,7 +47,7 @@ export default class App extends Component {
           if (user) {
             this.setState({ loggedIn: true });
           } else {
-            this.setState({ loggedIn: true});
+            this.setState({ loggedIn: false});
           }
         });
     }

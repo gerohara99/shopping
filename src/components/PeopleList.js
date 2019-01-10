@@ -4,12 +4,14 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, ListView } from 'react-native';
-import { connect } from 'react-redux';
-import PeopleItem from './PeopleItem';
-import Icon from 'react-native-vector-icons/EvilIcons';
-import PeopleDetail from './PeopleDetail';
+import React, { Component } from 'react'
+import { Text, View, StyleSheet, ListView } from 'react-native'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import PeopleItem from './PeopleItem'
+import Icon from 'react-native-vector-icons/EvilIcons'
+import PeopleDetail from './PeopleDetail'
+import {loadInitialContacts} from '../actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +33,10 @@ class PeopleList extends Component {
         style={{ color: tintColor }}
       />
     )
+  }
+
+  componentWillMount() {
+    this.props.loadInitialContacts()
   }
 
   renderInitialView() {
@@ -63,10 +69,13 @@ class PeopleList extends Component {
 }
 
 const mapStateToProps = state => {
+  const people = _.map(state.people, (val, uid) => {
+    return {...val, uid}
+  })
   return {
-    people: state.people,
-    detailView: state.detailView
+    people,
+    detailView: state.detailView,
   };
 };
 
-export default connect(mapStateToProps)(PeopleList);
+export default connect(mapStateToProps, {loadInitialContacts})(PeopleList);
