@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
 
 const store = createStore(
   reducers,
-  composeEnhancer(applyMiddleware(thunk)),
+//  composeEnhancer(applyMiddleware(thunk)),
+applyMiddleware(thunk),
 )
 
 export default class App extends Component {
