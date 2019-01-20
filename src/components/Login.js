@@ -58,6 +58,11 @@ export default class Login extends Component {
         .catch(() => {
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(this.onAuthSuccess.bind(this))
+//                .catch(function (error) {
+//                    var errorCode = error.code
+//                    var errorMessage = error.message
+//                    this.onAuthFailed.bind(this)
+//                });
                 .catch(this.onAuthFailed.bind(this));
         });
   }

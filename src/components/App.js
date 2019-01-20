@@ -14,6 +14,7 @@ import Loader from './Loader';
 import Navigation from './Navigation';
 import reducers from '../reducers/PeopleReducer';
 import thunk from 'redux-thunk'
+import compose from 'lodash'
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -36,11 +37,12 @@ export default class App extends Component {
 
     componentWillMount() {
         firebase.initializeApp({
-            apiKey: "AIzaSyDpMeFiwpZvWCBTkK5CvGiQrq0IWBdOPks",
-            authDomain: "crmlinkedin2.firebaseapp.com",
-            databaseURL: "https://crmlinkedin2.firebaseio.com",
-            storageBucket: "crmlinkedin2.appspot.com",
-            messagingSenderId: "349972667113"
+          apiKey: "AIzaSyAaqrgCeaFt_8yRABVzflOjEuko-c7JhgE",
+          authDomain: "crmlinkedin2-3238e.firebaseapp.com",
+          databaseURL: "https://crmlinkedin2-3238e.firebaseio.com",
+          projectId: "crmlinkedin2-3238e",
+          storageBucket: "crmlinkedin2-3238e.appspot.com",
+          messagingSenderId: "943960142281"
         });
 
         firebase.auth().onAuthStateChanged((user) => {
