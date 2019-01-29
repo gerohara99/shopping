@@ -10,6 +10,7 @@ const initialState = {
     project: '',
     notes: '',
     loadingPeople: false,
+    toUpdate: false,
 };
 
 export default (state = initialState, action) => {
@@ -43,6 +44,21 @@ export default (state = initialState, action) => {
         case 'NEW_CONTACT':
           return {
             ...state,
+            first_name: action.payload.first_name,
+            last_name: action.payload.last_name,
+            phone: action.payload.phone,
+            email: action.payload.email,
+            company: action.payload.company,
+            project: action.payload.project,
+            notes: action.payload.notes,
+            uid: action.payload.uid,
+          }
+
+        case 'SAVE_CONTACT':
+          return {
+            ...state,
+            toUpdate: false,
+            detailView: false,
             first_name: '',
             last_name: '',
             phone: '',
@@ -50,11 +66,26 @@ export default (state = initialState, action) => {
             company: '',
             project: '',
             notes: '',
+            uid: '',
           }
+
         case 'ADD_PERSON':
           return {
             ...state,
             ...action.newPerson
+          }
+
+        case 'UPDATE_CONTACT':
+          return {
+            ...state,
+            toUpdate: true,
+            first_name: '',
+            last_name: '',
+            phone: '',
+            email: '',
+            company: '',
+            project: '',
+            notes: '',
           }
 
         case 'DELETE_CONTACT':
