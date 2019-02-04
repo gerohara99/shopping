@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
@@ -26,7 +26,16 @@ const styles = StyleSheet.create({
     color: MKColor.Orange,
   },
   addButton: {
-    marginTop: 20,
+    marginBottom: 15,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  add: {
+    marginTop: 30,
   },
 });
 
@@ -38,10 +47,9 @@ class AddPerson extends Component {
   static navigationOptions = {
     tabBarLabel: 'Add Person',
     tabBarIcon: ({ tintColor }) => (
-      <Icon
-        name={'plus'}
-        size={70}
-        style={[{ color: tintColor }, styles.icon]}
+      <Image
+        style={styles.addButton}
+        source={require('../images/add_button3x.png')}
       />
     )
   }
@@ -57,7 +65,7 @@ class AddPerson extends Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
-          <Text>Add a new Contact</Text>
+          <Text style={styles.title}>Add a new Contact</Text>
           <MKTextField
               textInputStyle={styles.fieldStyles}
               placeholder={'First name....'}
@@ -114,7 +122,7 @@ class AddPerson extends Component {
               onChangeText={value =>
                 this.props.formUpdate({prop: 'notes', value})}
           />
-          <View style={styles.addButton}>
+          <View style={styles.add}>
             <AddButton onPress={this.onAddPress.bind(this)}/>
           </View>
         </View>

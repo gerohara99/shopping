@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   title: {
       top: 20,
       left: 80,
-      fontSize: 24,
+      fontSize: 26,
   },
   image: {
       height: 100,
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   },
   icon: {
       position: 'absolute',
-      top: 15,
-      left: 0,
+      top: 10,
+      left: 10,
       color: 'white',
       backgroundColor: 'rgba(255,255,255,0)',
   },
@@ -42,13 +42,13 @@ const CompanyItem = (props) => {
           />
           <Icon
             name={'business'}
-            size={100}
+            size={80}
             style={styles.icon}
           />
         <Text style={[theme.cardTitleStyle, styles.title]}>{props.companies.company}</Text>
         {props.companies.names.map((name) => {
           return (
-              <Text style={[theme.cardActionStyle, styles.action]}>
+              <Text key={name.uid} style={[theme.cardActionStyle, styles.action]}>
                 {name.first_name} {name.last_name} - Project: {name.project}
               </Text>
           )
