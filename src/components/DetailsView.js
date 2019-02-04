@@ -186,7 +186,7 @@ class DetailsView extends Component {
 
           <View style={styles.editArea}>
               <TouchableOpacity style={styles.sections}
-              onPress={() => {this.props.updateContact() }}>
+              onPress={() => {this.props.updateContact(this.props.person) }}>
                  <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>EDIT</Text>
               </TouchableOpacity>

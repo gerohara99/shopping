@@ -79,13 +79,14 @@ export default (state = initialState, action) => {
           return {
             ...state,
             toUpdate: true,
-            first_name: '',
-            last_name: '',
-            phone: '',
-            email: '',
-            company: '',
-            project: '',
-            notes: '',
+            first_name: action.payload.first_name,
+            last_name: action.payload.last_name,
+            phone: action.payload.phone,
+            email: action.payload.email,
+            company: action.payload.company,
+            project: action.payload.project,
+            notes: action.payload.notes,
+            uid: action.payload.uid,
           }
 
         case 'DELETE_CONTACT':

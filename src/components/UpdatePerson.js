@@ -50,7 +50,7 @@ class UpdatePerson extends Component {
     const { first_name, last_name, phone, email, company, project, notes, uid } = this.props;
     this.props.saveContact({ first_name, last_name, phone, email, company, project, notes, uid });
   }
-  
+
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -76,7 +76,7 @@ class UpdatePerson extends Component {
               textInputStyle={styles.fieldStyles}
               placeholder={'Phone Number....'}
               tintColor={MKColor.Teal}
-              value={this.props.phone_number}
+              value={this.props.phone}
               onChangeText={value =>
                 this.props.formUpdate({prop: 'phone', value})}
           />
