@@ -26,6 +26,9 @@ export const createNewContact = ({ first_name,last_name,phone,email,company,proj
     return(dispatch) => {
       firebase.database().ref(`/users/${currentUser.uid}/people`)
       .push({ first_name,last_name,phone,email,company,project,notes})
+      .catch(error => {
+        console.log("Firebase Error - ", error)
+      })
       .then(() => {
         dispatch({type: 'NEW_CONTACT'})
       })
@@ -35,26 +38,29 @@ export const createNewContact = ({ first_name,last_name,phone,email,company,proj
 export const loadInitialContacts = () => {
   const { currentUser } = firebase.auth()
 
-  return(dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/people`)
-    .on('value', snapshot => {
-      dispatch({ type: 'INITIAL_FETCH', payload: snapshot.val() })
-    })
-
-  }
+    return(dispatch) => {
+      firebase.database().ref(`/users/${currentUser.uid}/people`)
+      .on('value',snapshot => {
+        dispatch({type: 'INITIAL_FETCH', payload: snapshot.val()})
+        }, error => {
+          console.log(error)
+        }
+      )
+    }
 }
-
 export const deleteContact = (uid) => {
   const { currentUser } = firebase.auth()
-
   return(dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/people/${uid}`)
-    .remove()
-    .then(() => {
-      dispatch({ type: 'DELETE_CONTACT'})
-    })
+    try {
+      firebase.database().ref(`/users/${currentUser.uid}/people/${uid}`)
+      .remove()
+      .then(() => { dispatch({ type: 'DELETE_CONTACT'})})
+    } catch (error) {
+      console.log("Firebase Error - ", error)
+    }
   }
 }
+
 
 export const updateContact = (personSelected) => {
   return {
@@ -67,10 +73,12 @@ export const saveContact = ({ first_name,last_name,phone,email,company,project,n
   const { currentUser } = firebase.auth()
 
   return(dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/people/${uid}`)
-    .set({ first_name,last_name,phone,email,company,project,notes, uid})
-    .then(() => {
-      dispatch({ type: 'SAVE_CONTACT'})
-    })
+    try {
+      firebase.database().ref(`/users/${currentUser.uid}/people/${uid}`)
+      .set({ first_name,last_name,phone,email,company,project,notes, uid})
+      .then(() => { dispatch({ type: 'SAVE_CONTACT'})})
+    } catch (error) {
+      console.log("Firebase Error - ", error)
+    }
   }
 }
