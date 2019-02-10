@@ -50,21 +50,19 @@ export default class Login extends Component {
   };
 
   onButtonPress() {
-      const { email, password } = this.state;
-      this.setState({error: '', loading: true});
+    const { email, password } = this.state;
+    this.setState({error: '', loading: true});
 
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(this.onAuthSuccess.bind(this))
-        .catch(() => {
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(this.onAuthSuccess.bind(this))
-//                .catch(function (error) {
-//                    var errorCode = error.code
-//                    var errorMessage = error.message
-//                    this.onAuthFailed.bind(this)
-//                });
-                .catch(this.onAuthFailed.bind(this));
-        });
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(this.onAuthSuccess.bind(this))
+      .catch(() => {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then(this.onAuthSuccess.bind(this))
+          .catch(error => {
+            console.log("Firebase Error - ", error)
+          })
+          .catch(this.onAuthFailed.bind(this));
+      })
   }
 
   onAuthSuccess() {
