@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   add: {
     marginTop: 30,
   },
-});
+})
 
 const AddButton = MKButton.coloredButton()
   .withText('ADD')
@@ -55,10 +55,10 @@ class AddPerson extends Component {
   }
 
   onAddPress() {
-    const { first_name, last_name, phone, email, company, project, notes } = this.props;
-    this.props.createNewContact({ first_name, last_name, phone, email, company, project, notes });
+    const { first_name, last_name, phone, email, company, project, notes }= this.props
+    this.props.createNewContact({ first_name, last_name, phone, email, company, project, notes })
 
-    this.props.navigation.navigate('PeopleList');
+    this.props.navigation.navigate('PeopleList')
   }
 
   render() {

@@ -1,7 +1,7 @@
-import { StackNavigator,  TabNavigator } from 'react-navigation';
-import PeopleList from './PeopleList';
-import CompanyList from './CompanyList';
-import AddPerson from './AddPerson';
+import { StackNavigator,  TabNavigator } from 'react-navigation'
+import PeopleList from './PeopleList'
+import CompanyList from './CompanyList'
+import AddPerson from './AddPerson'
 
 const Navigation =  TabNavigator ({
     PeopleList: { screen: PeopleList },
@@ -17,6 +17,6 @@ const Navigation =  TabNavigator ({
             backgroundColor: '#26a69a',
         },
     },
-});
+})
 
-export default Navigation;
+export default Navigation

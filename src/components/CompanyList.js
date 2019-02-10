@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     backgroundColor: '#e5e5e5',
   },
-});
+})
 
 class CompanyList extends Component {
   static navigationOptions = {
@@ -51,7 +51,7 @@ class CompanyList extends Component {
           }
         />
       </View>
-    );
+    )
   }
 }
 

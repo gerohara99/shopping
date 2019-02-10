@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 20,
   },
-});
+})
 
 class PeopleList extends Component {
   static navigationOptions = {
@@ -78,4 +78,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {loadInitialContacts})(PeopleList);
+export default connect(mapStateToProps, {loadInitialContacts})(PeopleList)

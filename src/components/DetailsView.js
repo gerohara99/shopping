@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 import {  Text,
           View,
@@ -11,17 +11,17 @@ import {  Text,
           Image,
           ScrollView,
           TouchableOpacity,
-          Linking } from 'react-native';
+          Linking } from 'react-native'
 
-import { connect } from 'react-redux';
-import { getTheme } from 'react-native-material-kit';
-import EvilIcon from 'react-native-vector-icons/EvilIcons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+import { connect } from 'react-redux'
+import { getTheme } from 'react-native-material-kit'
+import EvilIcon from 'react-native-vector-icons/EvilIcons'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
-import * as actions from '../actions';
+import * as actions from '../actions'
 
-const theme = getTheme();
+const theme = getTheme()
 
 const styles = StyleSheet.create({
   card: {
@@ -106,7 +106,7 @@ class DetailsView extends Component {
             } else {
                 console.log('Don\'t know how to open URI: ' + link);
             }
-        });
+        })
     }
 
   render() {
@@ -216,7 +216,7 @@ const mapStateToProps = state => {
       person: state.personSelected,
       toUpdate: state.toUpdate,
 
-   };
-};
+   }
+}
 
-export default connect(mapStateToProps, actions)(DetailsView);
+export default connect(mapStateToProps, actions)(DetailsView)

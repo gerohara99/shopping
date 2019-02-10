@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
-import { connect } from 'react-redux';
-import { getTheme } from 'react-native-material-kit';
-import Icon from 'react-native-vector-icons/EvilIcons';
-import * as actions from '../actions';
+import { Text, View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
+import { connect } from 'react-redux'
+import { getTheme } from 'react-native-material-kit'
+import Icon from 'react-native-vector-icons/EvilIcons'
+import * as actions from '../actions'
 
 const theme = getTheme();
 
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
       color: 'white',
       backgroundColor: 'rgba(255,255,255,0)',
   },
-});
+})
 
 const PeopleItem = (props) => {
     return (
@@ -52,4 +52,4 @@ const PeopleItem = (props) => {
     );
 };
 
-export default connect(null, actions)(PeopleItem);
+export default connect(null, actions)(PeopleItem)

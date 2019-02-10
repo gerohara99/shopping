@@ -1,9 +1,9 @@
-import React from 'react';
-import { Text, View, StyleSheet, Image, ListView } from 'react-native';
-import { getTheme } from 'react-native-material-kit';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import { Text, View, StyleSheet, Image, ListView } from 'react-native'
+import { getTheme } from 'react-native-material-kit'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
-const theme = getTheme();
+const theme = getTheme()
 
 const styles = StyleSheet.create({
   card: {

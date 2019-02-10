@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 
 const styles = StyleSheet.create({
     loader: {
@@ -19,8 +19,8 @@ const Loader = ({ size }) => {
     return(
         <View style={styles.loader}>
             <ActivityIndicator size={size || 'small'} />
-        </View>        
+        </View>
         );
 };
 
-export default Loader;
+export default Loader

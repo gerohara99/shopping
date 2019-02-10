@@ -4,11 +4,11 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
-import Loader from './Loader';
-import firebase from 'firebase';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
+import Loader from './Loader'
+import firebase from 'firebase'
 
 const LoginButton = MKButton.coloredButton()
     .withText('LOGIN')
@@ -57,11 +57,11 @@ export default class Login extends Component {
       password: '',
       error: '',
       loading: false,
-  };
+  }
 
   onButtonPress() {
-    const { email, password } = this.state;
-    this.setState({error: '', loading: true});
+    const { email, password } = this.state
+    this.setState({error: '', loading: true})
 
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(this.onAuthSuccess.bind(this))
@@ -71,7 +71,7 @@ export default class Login extends Component {
           .catch(error => {
             console.log("Firebase Error - ", error)
           })
-          .catch(this.onAuthFailed.bind(this));
+          .catch(this.onAuthFailed.bind(this))
       })
   }
 
@@ -93,14 +93,14 @@ onAuthFailed() {
 
   renderLoader() {
     if (this.state.loading) {
-        return <Loader size="large"/>;
+        return <Loader size="large"/>
     } else {
         return <LoginButton onPress={this.onButtonPress.bind(this)} />
     }
   }
 
   render() {
-    const { form, fieldStyles, loginButtonArea, errorMessage, welcome, container } = styles;
+    const { form, fieldStyles, loginButtonArea, errorMessage, welcome, container } = styles
     return (
       <View style={form}>
         <Text style={styles.title}>Login or create an account</Text>
@@ -126,6 +126,6 @@ onAuthFailed() {
             {this.renderLoader()}
         </View>
       </View>
-    );
+    )
   }
 }

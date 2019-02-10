@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Text, View, StyleSheet, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
@@ -59,8 +59,8 @@ class UpdatePerson extends Component {
   }
 
   onUpdatePress() {
-    const { first_name, last_name, phone, email, company, project, notes, uid } = this.props;
-    this.props.saveContact({ first_name, last_name, phone, email, company, project, notes, uid });
+    const { first_name, last_name, phone, email, company, project, notes, uid } = this.props
+    this.props.saveContact({ first_name, last_name, phone, email, company, project, notes, uid })
   }
 
   render() {

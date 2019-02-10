@@ -4,15 +4,15 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import firebase from 'firebase';
-import { Provider } from 'react-redux';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import firebase from 'firebase'
+import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import Login from './Login';
-import Loader from './Loader';
-import Navigation from './Navigation';
-import reducers from '../reducers/PeopleReducer';
+import Login from './Login'
+import Loader from './Loader'
+import Navigation from './Navigation'
+import reducers from '../reducers/PeopleReducer'
 import thunk from 'redux-thunk'
 import compose from 'lodash'
 
@@ -48,9 +48,9 @@ export default class App extends Component {
 
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
-            this.setState({ loggedIn: true });
+            this.setState({ loggedIn: true })
           } else {
-            this.setState({ loggedIn: false});
+            this.setState({ loggedIn: false})
           }
         });
     }
@@ -62,7 +62,7 @@ export default class App extends Component {
         case false:
           return <Login />;
         default:
-          return <Loader size="large" />;
+          return <Loader size="large" />
       }
     }
     render() {
