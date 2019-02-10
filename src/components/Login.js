@@ -16,8 +16,12 @@ const LoginButton = MKButton.coloredButton()
 
 const styles = StyleSheet.create({
     form: {
-        paddingBottom: 10,
-        width: 200,
+      flex: 1,
+      paddingTop: 50,
+      paddingBottom: 10,
+      paddingLeft: 20,
+      paddingRight: 20,
+      justifyContent: 'space-between',
     },
     fieldStyles: {
         height: 40,
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     container: {
-    flex: 1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
@@ -38,6 +42,12 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: 'red',
         alignSelf: 'center'
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      paddingTop: 10,
+      paddingBottom: 10,
     },
 });
 
@@ -93,7 +103,7 @@ onAuthFailed() {
     const { form, fieldStyles, loginButtonArea, errorMessage, welcome, container } = styles;
     return (
       <View style={form}>
-        <Text>Login or create an account</Text>
+        <Text style={styles.title}>Login or create an account</Text>
         <MKTextField
             text={this.state.email}
             onTextChange={email => this.setState({ email })}
