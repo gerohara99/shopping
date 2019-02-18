@@ -43,7 +43,22 @@ const AddButton = MKButton.coloredButton()
   .withText('ADD')
   .build()
 
-class AddPerson extends Component {
+type props = {
+  createNewContact: function,
+  navigation: function,
+  formUpdate: function,
+  first_name: string,
+  last_name: string,
+  phone: string,
+  email: string,
+  company: string,
+  project: string,
+  notes: string,
+}
+
+type state = {}
+
+class AddPerson extends Component <props, state> {
   static navigationOptions = {
     tabBarLabel: 'Add Person',
     tabBarIcon: ({ tintColor }) => (
@@ -86,7 +101,7 @@ class AddPerson extends Component {
               textInputStyle={styles.fieldStyles}
               placeholder={'Phone Number....'}
               tintColor={MKColor.Teal}
-              value={this.props.phone_number}
+              value={this.props.phone}
               onChangeText={value =>
                 this.props.formUpdate({prop: 'phone', value})}
           />

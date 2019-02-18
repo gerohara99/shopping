@@ -102,7 +102,13 @@ const styles = StyleSheet.create({
   },
 })
 
-class PeopleDetail extends Component {
+type props = {
+  toUpdate: boolean,
+}
+
+type state = {}
+
+class PeopleDetail extends Component <props, state> {
   renderDetails() {
     if (this.props.toUpdate) {
       return <UpdatePerson />

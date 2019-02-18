@@ -23,7 +23,14 @@ const styles = StyleSheet.create({
   },
 })
 
-class PeopleList extends Component {
+type props = {
+  loadInitialContacts: function,
+  detailView: boolean,
+  people: {}
+}
+type state = {}
+
+class PeopleList extends Component <props, state> {
   static navigationOptions = {
     tabBarLabel: 'People',
     tabBarIcon: ({ tintColor }) => (

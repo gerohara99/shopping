@@ -33,8 +33,14 @@ const store = createStore(
 applyMiddleware(thunk),
 )
 
-export default class App extends Component {
-  state = { loggedIn: null};
+type props = {}
+
+type state = {
+  loggedIn: boolean,
+}
+
+export default class App extends Component <props, state> {
+  state = { loggedIn: false};
 
     componentWillMount() {
         firebase.initializeApp({

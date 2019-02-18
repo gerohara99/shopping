@@ -22,7 +22,12 @@ const styles = StyleSheet.create({
   },
 })
 
-class CompanyList extends Component {
+type props = {
+  companies: {},
+}
+type state = {}
+
+class CompanyList extends Component <props, state>{
   static navigationOptions = {
     tabBarLabel: 'Companies',
     tabBarIcon: ({ tintColor }) => (

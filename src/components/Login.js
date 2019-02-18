@@ -51,7 +51,17 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class Login extends Component {
+type props = {}
+
+type state = {
+  email: string,
+  password: string, 
+  error: string,
+  loading: boolean,
+}
+
+
+export default class Login extends Component <props, state>{
   state = {
       email: '',
       password: '',
@@ -100,7 +110,7 @@ onAuthFailed() {
   }
 
   render() {
-    const { form, fieldStyles, loginButtonArea, errorMessage, welcome, container } = styles
+    const { form, fieldStyles, loginButtonArea, errorMessage, container } = styles
     return (
       <View style={form}>
         <Text style={styles.title}>Login or create an account</Text>

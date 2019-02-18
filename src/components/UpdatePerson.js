@@ -46,7 +46,22 @@ const UpdateButton = MKButton.coloredButton()
   .withText('UPDATE')
   .build()
 
-class UpdatePerson extends Component {
+type props = {
+  saveContact: function,
+  formUpdate: function,
+  first_name: string,
+  last_name: string,
+  phone: string,
+  email: string,
+  company: string,
+  project: string,
+  notes: string,
+  uid: string,
+  }
+
+type state = {}
+
+class UpdatePerson extends Component <props, state>{
   static navigationOptions = {
     tabBarLabel: 'Add Person',
     tabBarIcon: ({ tintColor }) => (

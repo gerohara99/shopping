@@ -98,9 +98,28 @@ const styles = StyleSheet.create({
   },
 });
 
-class DetailsView extends Component {
+type props = {
+  noneSelected: function,
+  updateContact: function,
+  deleteContact: function,
+  
+  person : {
+    first_name: string,
+    last_name: string,
+    phone: string,
+    email: string,
+    company: string,
+    project: string,
+    notes: string,
+    uid: string,
+  }
+}
+
+type state = {}
+
+class DetailsView extends Component <props, state> {
     handleClick = (link) => {
-        Linking.canOpenURL(link).then(suppported => {
+        Linking.canOpenURL(link).then(supported => {
             if (supported) {
                 Linking.openURL(link);
             } else {
