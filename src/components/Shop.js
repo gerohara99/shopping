@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const CompanyItem = (props) => {
+const Shop = (props) => {
     return (
       <View>
         <View style={[theme.cardStyle, styles.card]}>
@@ -41,7 +41,7 @@ const CompanyItem = (props) => {
             style={[theme.cardImageStyle, styles.image]}
           />
           <Icon
-            name={'business'}
+            name={'shop'}
             size={80}
             style={styles.icon}
           />
@@ -58,4 +58,4 @@ const CompanyItem = (props) => {
   );
 };
 
-export default CompanyItem
+export default Shop

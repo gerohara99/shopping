@@ -9,7 +9,7 @@ import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import CompanyItem from './CompanyItem'
+import CompanyItem from './Shop'
 
 const styles = StyleSheet.create({
   container: {
@@ -27,12 +27,12 @@ type props = {
 }
 type state = {}
 
-class CompanyList extends Component <props, state>{
+class ShopList extends Component <props, state>{
   static navigationOptions = {
-    tabBarLabel: 'Companies',
+    tabBarLabel: 'Shops',
     tabBarIcon: ({ tintColor }) => (
       <Icon
-        name={'business'}
+        name={'shop'}
         size={45}
         style={{ color: tintColor }}
       />
@@ -81,4 +81,4 @@ const companies =
   }
 }
 
-export default connect(mapStateToProps)(CompanyList)
+export default connect(mapStateToProps)(ShopList)

@@ -1,4 +1,4 @@
-package com.crm;
+package com.shopping;
 
 import android.app.Application;
 

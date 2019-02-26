@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const PeopleItem = (props) => {
+const ShoppingItem = (props) => {
     return (
       <TouchableWithoutFeedback onPress={() => props.selectPerson(props.people)}>
         <View style={[theme.cardStyle, styles.card]}>
@@ -52,4 +52,4 @@ const PeopleItem = (props) => {
     );
 };
 
-export default connect(null, actions)(PeopleItem)
+export default connect(null, actions)(ShoppingItem)

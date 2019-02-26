@@ -21,7 +21,7 @@ import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import * as actions from '../actions'
 import DetailsView from './DetailsView'
-import UpdatePerson from './UpdatePerson'
+import UpdateShoppingItem from './UpdateShoppingItem'
 
 const theme = getTheme()
 
@@ -108,10 +108,10 @@ type props = {
 
 type state = {}
 
-class PeopleDetail extends Component <props, state> {
+class ShoppingItemDetail extends Component <props, state> {
   renderDetails() {
     if (this.props.toUpdate) {
-      return <UpdatePerson />
+      return <UpdateShoppingItem />
     } else {
       return <DetailsView />
     }
@@ -132,4 +132,4 @@ const mapStateToProps = state => {
    };
 };
 
-export default connect(mapStateToProps, actions)(PeopleDetail)
+export default connect(mapStateToProps, actions)(ShoppingItemDetail)

@@ -20,7 +20,7 @@ export const formUpdate = ({ prop, value }) => {
     }
 }
 
-export const createNewContact
+export const createNewShoppingItem
   = ({ first_name,last_name,phone,email,company,project,notes}) => {
     const { currentUser } = firebase.auth()
 

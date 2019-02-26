@@ -12,7 +12,7 @@ import { createStore, applyMiddleware } from 'redux'
 import Login from './Login'
 import Loader from './Loader'
 import Navigation from './Navigation'
-import reducers from '../reducers/PeopleReducer'
+import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
 import compose from 'lodash'
 
@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
 
 const store = createStore(
   reducers,
-//  composeEnhancer(applyMiddleware(thunk)),
-applyMiddleware(thunk),
+  applyMiddleware(thunk),
 )
 
 type props = {}
@@ -44,12 +43,12 @@ export default class App extends Component <props, state> {
 
     componentWillMount() {
         firebase.initializeApp({
-          apiKey: "AIzaSyAaqrgCeaFt_8yRABVzflOjEuko-c7JhgE",
-          authDomain: "crmlinkedin2-3238e.firebaseapp.com",
-          databaseURL: "https://crmlinkedin2-3238e.firebaseio.com",
-          projectId: "crmlinkedin2-3238e",
-          storageBucket: "crmlinkedin2-3238e.appspot.com",
-          messagingSenderId: "943960142281"
+          apiKey: "AIzaSyArUsFOCEjBgtgpyvgAEwBcYIr_IhFEIV8",
+          authDomain: "shopping-44bca.firebaseapp.com",
+          databaseURL: "https://shopping-44bca.firebaseio.com",
+          projectId: "shopping-44bca",
+          storageBucket: "shopping-44bca.appspot.com",
+          messagingSenderId: "783286480391"
         });
 
         firebase.auth().onAuthStateChanged((user) => {

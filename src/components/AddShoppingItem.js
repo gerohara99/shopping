@@ -4,8 +4,8 @@
  * @flow
  */
 
-import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import React, { Component } from 'react';
+import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
@@ -25,11 +25,8 @@ const styles = StyleSheet.create({
     height: 40,
     color: MKColor.Orange,
   },
-  update: {
-    marginTop: 30,
-  },
   addButton: {
-    marginTop: 15,
+    marginBottom: 15,
   },
   title: {
     fontSize: 20,
@@ -40,14 +37,15 @@ const styles = StyleSheet.create({
   add: {
     marginTop: 30,
   },
-});
+})
 
-const UpdateButton = MKButton.coloredButton()
-  .withText('UPDATE')
+const AddButton = MKButton.coloredButton()
+  .withText('ADD')
   .build()
 
 type props = {
-  saveContact: function,
+  createNewContact: function,
+  navigation: function,
   formUpdate: function,
   first_name: string,
   last_name: string,
@@ -56,33 +54,33 @@ type props = {
   company: string,
   project: string,
   notes: string,
-  uid: string,
-  }
+}
 
 type state = {}
 
-class UpdatePerson extends Component <props, state>{
+class AddShoppingItem extends Component <props, state> {
   static navigationOptions = {
-    tabBarLabel: 'Add Person',
+    tabBarLabel: 'Add Shopping',
     tabBarIcon: ({ tintColor }) => (
-      <Icon
-        name={'plus'}
-        size={70}
-        style={[{ color: tintColor }, styles.icon]}
+      <Image
+        style={styles.addButton}
+        source={require('../images/add_button3x.png')}
       />
     )
   }
 
-  onUpdatePress() {
-    const { first_name, last_name, phone, email, company, project, notes, uid } = this.props
-    this.props.saveContact({ first_name, last_name, phone, email, company, project, notes, uid })
+  onAddPress() {
+    const { first_name, last_name, phone, email, company, project, notes }= this.props
+    this.props.createNewShoppingItem({ first_name, last_name, phone, email, company, project, notes })
+
+    this.props.navigation.navigate('ShoppingItemList')
   }
 
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
-          <Text style={styles.title}>Update Contact</Text>
+          <Text style={styles.title}>Add a new Shopping Item</Text>
           <MKTextField
               textInputStyle={styles.fieldStyles}
               placeholder={'First name....'}
@@ -139,8 +137,8 @@ class UpdatePerson extends Component <props, state>{
               onChangeText={value =>
                 this.props.formUpdate({prop: 'notes', value})}
           />
-        <View style={styles.update}>
-            <UpdateButton onPress={this.onUpdatePress.bind(this)}/>
+          <View style={styles.add}>
+            <AddButton onPress={this.onAddPress.bind(this)}/>
           </View>
         </View>
       </ScrollView>
@@ -149,8 +147,8 @@ class UpdatePerson extends Component <props, state>{
 }
 
 const mapStateToProps = state => {
-  const { first_name,last_name,phone,email,company,project,notes, uid} = state
-  return ({first_name,last_name,phone,email,company,project,notes, uid})
+  const { first_name,last_name,phone,email,company,project,notes} = state
+  return ({first_name,last_name,phone,email,company,project,notes})
 }
 
-export default connect(mapStateToProps, actions)(UpdatePerson)
+export default connect(mapStateToProps, actions)(AddShoppingItem)

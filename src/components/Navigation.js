@@ -1,12 +1,12 @@
 import { StackNavigator,  TabNavigator } from 'react-navigation'
-import PeopleList from './PeopleList'
-import CompanyList from './CompanyList'
-import AddPerson from './AddPerson'
+import ShoppingItemList from './ShoppingItemList'
+import ShopList from './ShopList'
+import AddShoppingItem from './AddShoppingItem'
 
 const Navigation =  TabNavigator ({
-    PeopleList: { screen: PeopleList },
-    AddPerson: { screen: AddPerson },
-    CompanyList: { screen: CompanyList },
+    ShoppingItemList: { screen: ShoppingItemList },
+    AddShoppingItem: { screen: AddShoppingItem },
+    ShopList: { screen: ShopList },
 }, {
     tabBarOptions: {
         activeTintColor: 'white',

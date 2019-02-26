@@ -8,9 +8,9 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import PeopleItem from './PeopleItem'
+import ShoppingItem from './ShoppingItem'
 import Icon from 'react-native-vector-icons/EvilIcons'
-import PeopleDetail from './PeopleDetail'
+import ShoppingItemDetail from './ShoppingItemDetail'
 import {loadInitialContacts} from '../actions'
 
 const styles = StyleSheet.create({
@@ -30,7 +30,7 @@ type props = {
 }
 type state = {}
 
-class PeopleList extends Component <props, state> {
+class ShoppingItemList extends Component <props, state> {
   static navigationOptions = {
     tabBarLabel: 'People',
     tabBarIcon: ({ tintColor }) => (
@@ -54,7 +54,7 @@ class PeopleList extends Component <props, state> {
 
     if (this.props.detailView === true) {
       return (
-        <PeopleDetail />
+        <ShoppingItemDetail />
       )
     } else {
       return (
@@ -62,7 +62,7 @@ class PeopleList extends Component <props, state> {
           enableEmptySections={true}
           dataSource={this.dataSource}
           renderRow={(rowData) =>
-            <PeopleItem people={rowData} />}
+            <ShoppingItem people={rowData} />}
         />)
     }
   }
@@ -85,4 +85,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {loadInitialContacts})(PeopleList)
+export default connect(mapStateToProps, {loadInitialContacts})(ShoppingItemList)
