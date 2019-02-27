@@ -25,7 +25,7 @@ export const createNewShoppingItem
     const { currentUser } = firebase.auth()
 
     return(dispatch) => {
-      firebase.database().ref(`/users/${currentUser.uid}/people`)
+      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
       .push({ first_name,last_name,phone,email,company,project,notes})
       .catch(error => {
         console.log("Firebase Error - ", error)
@@ -40,7 +40,7 @@ export const loadInitialContacts = () => {
   const { currentUser } = firebase.auth()
 
     return(dispatch) => {
-      firebase.database().ref(`/users/${currentUser.uid}/people`)
+      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
       .on('value',snapshot => {
         dispatch({type: 'INITIAL_FETCH', payload: snapshot.val()})
         }, error => {
@@ -53,7 +53,7 @@ export const deleteContact = (uid) => {
   const { currentUser } = firebase.auth()
   return(dispatch) => {
     try {
-      firebase.database().ref(`/users/${currentUser.uid}/people/${uid}`)
+      firebase.database().ref(`/users/${currentUser.uid}/shopping/${uid}`)
       .remove()
       .then(() => { dispatch({ type: 'DELETE_CONTACT'})})
     } catch (error) {
@@ -76,7 +76,7 @@ export const saveContact
 
   return(dispatch) => {
     try {
-      firebase.database().ref(`/users/${currentUser.uid}/people/${uid}`)
+      firebase.database().ref(`/users/${currentUser.uid}/shopping/${uid}`)
       .set({ first_name,last_name,phone,email,company,project,notes, uid})
       .then(() => { dispatch({ type: 'SAVE_CONTACT'})})
     } catch (error) {
