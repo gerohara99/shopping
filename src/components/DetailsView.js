@@ -100,17 +100,12 @@ const styles = StyleSheet.create({
 
 type props = {
   noneSelected: function,
-  updateContact: function,
-  deleteContact: function,
+  updateShoppingItem: function,
+  deleteShoppingItem: function,
   
-  person : {
-    first_name: string,
-    last_name: string,
-    phone: string,
-    email: string,
-    company: string,
-    project: string,
-    notes: string,
+  shopping: {
+    shop: string,
+    shoppingItem: string,
     uid: string,
   }
 }
@@ -144,85 +139,29 @@ class DetailsView extends Component <props, state> {
               />
           </TouchableOpacity>
 
-          <Text style={[theme.cardTitleStyle, styles.title1]}>
-            {this.props.person.first_name} {this.props.person.last_name}
-          </Text>
-          <Text style={[theme.cardTitleStyle, styles.title2]}>from
-            {this.props.person.company}
-          </Text>
-
           <View style={styles.textArea}>
-           <MaterialIcon name={'phone'} size={40}
-             style={styles.textIcons}/>
            <Text style={theme.cardContentStyle}>
-             {this.props.person.phone}
+             {this.props.shopping.shop}
            </Text>
           </View>
 
           <View style={styles.textArea}>
-           <MaterialIcon name={'email'} size={40}
-             style={styles.textIcons}/>
            <Text style={theme.cardContentStyle}>
-             {this.props.person.email}
+             {this.props.shopping.shoppingItem}
            </Text>
-          </View>
-
-          <View style={styles.textArea}>
-           <MaterialIcon name={'assignment'} size={40}
-             style={styles.textIcons}/>
-           <Text style={theme.cardContentStyle}>
-             {this.props.person.project}
-           </Text>
-          </View>
-
-          <View style={styles.textArea}>
-           <MaterialIcon name={'mode-edit'} size={40}
-             style={styles.textIcons}/>
-           <Text style={theme.cardContentStyle}>
-             {this.props.person.notes}
-           </Text>
-          </View>
-
-          <View style={styles.actionArea}>
-            <TouchableOpacity
-              onPress={() =>
-                { this.handleClick(`tel:${this.props.person.phone}`)}}>
-              <Image source={require('../images/call2x.png')}
-                style={styles.actionImage}/>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() =>
-                { this.handleClick(`sms:${this.props.person.phone}`)}}>
-              <Image source={require('../images/sms2x.png')}
-                style={styles.actionImage}/>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() =>
-                { this.handleClick(`mailto:${this.props.person.email}`)}}>
-              <Image source={require('../images/email2x.png')}
-                style={styles.actionImage}/>
-            </TouchableOpacity>
           </View>
 
           <View style={styles.editArea}>
               <TouchableOpacity style={styles.sections}
-              onPress={() => {this.props.updateContact(this.props.person) }}>
+              onPress={() => {this.props.updateShoppingItem(this.props.shopping) }}>
                  <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>EDIT</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sections}
-                  onPress={() => { this.props.deleteContact(this.props.person.uid)}}>
+                  onPress={() => { this.props.deleteShoppingItem(this.props.shopping.uid)}}>
                  <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>DELETE</Text>
               </TouchableOpacity>
-          </View>
-
-          <View style={styles.actionArea}>
-            <Text>Call</Text>
-            <Text>SMS</Text>
-            <Text>Email</Text>
           </View>
         </View>
       </ScrollView>
@@ -232,7 +171,7 @@ class DetailsView extends Component <props, state> {
 
 const mapStateToProps = state => {
   return {
-      person: state.personSelected,
+      shopping: state.shoppingItemSelected,
       toUpdate: state.toUpdate,
 
    }

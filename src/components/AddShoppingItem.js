@@ -47,13 +47,8 @@ type props = {
   createNewContact: function,
   navigation: function,
   formUpdate: function,
-  first_name: string,
-  last_name: string,
-  phone: string,
-  email: string,
-  company: string,
-  project: string,
-  notes: string,
+  shop: string,
+  shoppingItem: string,
 }
 
 type state = {}
@@ -70,8 +65,8 @@ class AddShoppingItem extends Component <props, state> {
   }
 
   onAddPress() {
-    const { first_name, last_name, phone, email, company, project, notes }= this.props
-    this.props.createNewShoppingItem({ first_name, last_name, phone, email, company, project, notes })
+    const { shop, shoppingItem }= this.props
+    this.props.createNewShoppingItem({ shop, shoppingItem  })
 
     this.props.navigation.navigate('ShoppingItemList')
   }
@@ -83,59 +78,19 @@ class AddShoppingItem extends Component <props, state> {
           <Text style={styles.title}>Add a new Shopping Item</Text>
           <MKTextField
               textInputStyle={styles.fieldStyles}
-              placeholder={'First name....'}
+              placeholder={'Shop....'}
               tintColor={MKColor.Teal}
-              value={this.props.first_name}
+              value={this.props.shop}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'first_name', value})}
+                this.props.formUpdate({prop: 'shop', value})}
           />
           <MKTextField
               textInputStyle={styles.fieldStyles}
-              placeholder={'Last name....'}
+              placeholder={'Shopping Item....'}
               tintColor={MKColor.Teal}
-              value={this.props.last_name}
+              value={this.props.shoppingItem}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'last_name', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Phone Number....'}
-              tintColor={MKColor.Teal}
-              value={this.props.phone}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'phone', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Email....'}
-              tintColor={MKColor.Teal}
-              value={this.props.email}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'email', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Company....'}
-              tintColor={MKColor.Teal}
-              value={this.props.company}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'company', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Project....'}
-              tintColor={MKColor.Teal}
-              value={this.props.project}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'project', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Notes....'}
-              tintColor={MKColor.Teal}
-              value={this.props.notes}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'notes', value})}
+                this.props.formUpdate({prop: 'shoppingItem', value})}
           />
           <View style={styles.add}>
             <AddButton onPress={this.onAddPress.bind(this)}/>
@@ -147,8 +102,8 @@ class AddShoppingItem extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  const { first_name,last_name,phone,email,company,project,notes} = state
-  return ({first_name,last_name,phone,email,company,project,notes})
+  const { shop, shoppingItem } = state
+  return ({shop, shoppingItem})
 }
 
 export default connect(mapStateToProps, actions)(AddShoppingItem)

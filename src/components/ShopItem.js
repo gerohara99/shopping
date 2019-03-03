@@ -32,24 +32,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const Shop = (props) => {
+const ShopItem = (props) => {
     return (
       <View>
         <View style={[theme.cardStyle, styles.card]}>
           <Image
-            source={{ uri: '/Users/Ger/github/crm/src/images/background.jpg'}}
+            source={{ uri: '/Users/Ger/github/shopping/src/images/background.jpg'}}
             style={[theme.cardImageStyle, styles.image]}
           />
           <Icon
-            name={'shop'}
+            name={'business'}
             size={80}
             style={styles.icon}
           />
-        <Text style={[theme.cardTitleStyle, styles.title]}>{props.companies.company}</Text>
-        {props.companies.names.map((name) => {
+        <Text style={[theme.cardTitleStyle, styles.title]}>{props.shops.shop}</Text>
+        {props.shops.shopping.map((item) => {
           return (
               <Text key={name.uid} style={[theme.cardActionStyle, styles.action]}>
-                {name.first_name} {name.last_name} - Project: {name.project}
+                {item.shoppingItem} 
               </Text>
           )
         })}
@@ -58,4 +58,4 @@ const Shop = (props) => {
   );
 };
 
-export default Shop
+export default ShopItem

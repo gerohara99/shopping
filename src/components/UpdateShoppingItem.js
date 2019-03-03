@@ -47,7 +47,7 @@ const UpdateButton = MKButton.coloredButton()
   .build()
 
 type props = {
-  saveContact: function,
+  saveShoppingItem: function,
   formUpdate: function,
   first_name: string,
   last_name: string,
@@ -63,7 +63,7 @@ type state = {}
 
 class UpdateShoppingItem extends Component <props, state>{
   static navigationOptions = {
-    tabBarLabel: 'Add Person',
+    tabBarLabel: 'Add Shopping',
     tabBarIcon: ({ tintColor }) => (
       <Icon
         name={'plus'}
@@ -74,70 +74,30 @@ class UpdateShoppingItem extends Component <props, state>{
   }
 
   onUpdatePress() {
-    const { first_name, last_name, phone, email, company, project, notes, uid } = this.props
-    this.props.saveContact({ first_name, last_name, phone, email, company, project, notes, uid })
+    const { shop, shoppingItem, uid } = this.props
+    this.props.saveShoppingItem({ shop, shoppingItem, uid })
   }
 
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
-          <Text style={styles.title}>Update Contact</Text>
+          <Text style={styles.title}>Update Shopping Item</Text>
           <MKTextField
               textInputStyle={styles.fieldStyles}
-              placeholder={'First name....'}
+              placeholder={'Shop....'}
               tintColor={MKColor.Teal}
-              value={this.props.first_name}
+              value={this.props.shop}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'first_name', value})}
+                this.props.formUpdate({prop: 'shop', value})}
           />
           <MKTextField
               textInputStyle={styles.fieldStyles}
-              placeholder={'Last name....'}
+              placeholder={'Shopping Item....'}
               tintColor={MKColor.Teal}
-              value={this.props.last_name}
+              value={this.props.shoppingItem}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'last_name', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Phone Number....'}
-              tintColor={MKColor.Teal}
-              value={this.props.phone}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'phone', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Email....'}
-              tintColor={MKColor.Teal}
-              value={this.props.email}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'email', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Company....'}
-              tintColor={MKColor.Teal}
-              value={this.props.company}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'company', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Project....'}
-              tintColor={MKColor.Teal}
-              value={this.props.project}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'project', value})}
-          />
-          <MKTextField
-              textInputStyle={styles.fieldStyles}
-              placeholder={'Notes....'}
-              tintColor={MKColor.Teal}
-              value={this.props.notes}
-              onChangeText={value =>
-                this.props.formUpdate({prop: 'notes', value})}
+                this.props.formUpdate({prop: 'shoppingItem', value})}
           />
         <View style={styles.update}>
             <UpdateButton onPress={this.onUpdatePress.bind(this)}/>
@@ -149,8 +109,8 @@ class UpdateShoppingItem extends Component <props, state>{
 }
 
 const mapStateToProps = state => {
-  const { first_name,last_name,phone,email,company,project,notes, uid} = state
-  return ({first_name,last_name,phone,email,company,project,notes, uid})
+  const { shop, shoppingItem, uid} = state
+  return ({ shop, shoppingItem, uid})
 }
 
 export default connect(mapStateToProps, actions)(UpdateShoppingItem)

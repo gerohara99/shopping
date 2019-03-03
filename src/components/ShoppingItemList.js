@@ -11,7 +11,7 @@ import _ from 'lodash'
 import ShoppingItem from './ShoppingItem'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import ShoppingItemDetail from './ShoppingItemDetail'
-import {loadInitialContacts} from '../actions'
+import {loadInitialShoppingItems} from '../actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -24,15 +24,15 @@ const styles = StyleSheet.create({
 })
 
 type props = {
-  loadInitialContacts: function,
+  loadInitialShoppingItems: function,
   detailView: boolean,
-  people: {}
+  shoppingItems: {}
 }
 type state = {}
 
 class ShoppingItemList extends Component <props, state> {
   static navigationOptions = {
-    tabBarLabel: 'People',
+    tabBarLabel: 'Shopping',
     tabBarIcon: ({ tintColor }) => (
       <Icon
         name={'user'}
@@ -43,14 +43,14 @@ class ShoppingItemList extends Component <props, state> {
   }
 
   componentWillMount() {
-    this.props.loadInitialContacts()
+    this.props.loadInitialShoppingItems()
   }
 
   renderInitialView() {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
     });
-    this.dataSource = ds.cloneWithRows(this.props.people);
+    this.dataSource = ds.cloneWithRows(this.props.shoppingItems);
 
     if (this.props.detailView === true) {
       return (
@@ -62,7 +62,7 @@ class ShoppingItemList extends Component <props, state> {
           enableEmptySections={true}
           dataSource={this.dataSource}
           renderRow={(rowData) =>
-            <ShoppingItem people={rowData} />}
+            <ShoppingItem shoppingItems={rowData} />}
         />)
     }
   }
@@ -76,13 +76,13 @@ class ShoppingItemList extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  const people = _.map(state.people, (val, uid) => {
+  const shoppingItems = _.map(state.shoppingItems, (val, uid) => {
     return {...val, uid}
   })
   return {
-    people,
+    shoppingItems,
     detailView: state.detailView,
   };
 };
 
-export default connect(mapStateToProps, {loadInitialContacts})(ShoppingItemList)
+export default connect(mapStateToProps, {loadInitialShoppingItems})(ShoppingItemList)

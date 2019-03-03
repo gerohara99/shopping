@@ -9,7 +9,7 @@ import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import CompanyItem from './Shop'
+import ShopItem from './ShopItem'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 })
 
 type props = {
-  companies: {},
+  shops: {},
 }
 type state = {}
 
@@ -44,7 +44,7 @@ class ShopList extends Component <props, state>{
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
     });
-    this.dataSource = ds.cloneWithRows(this.props.companies);
+    this.dataSource = ds.cloneWithRows(this.props.shops);
 
     return (
       <View style={styles.container}>
@@ -52,7 +52,7 @@ class ShopList extends Component <props, state>{
           enableEmptySections={true}
           dataSource={this.dataSource}
           renderRow={(rowData) =>
-            <CompanyItem companies={rowData} />
+            <ShopItem shops={rowData} />
           }
         />
       </View>
@@ -61,23 +61,23 @@ class ShopList extends Component <props, state>{
 }
 
 const mapStateToProps = state => {
-  const people = _.map(state.people, (val, uid) => {
+  const shoppingItems = _.map(state.shoppingItems, (val, uid) => {
     return {...val,uid}
   })
 
-const companies =
-  _.chain(people)
-  .groupBy('company')
+const shops =
+  _.chain(shoppingItems)
+  .groupBy('shop')
   .map((value, key) => {
     return {
-      company: key,
-      names: value
+      shops: key,
+      shopping: value
     }
   })
   .value()
 
   return {
-    companies,
+    shops,
   }
 }
 

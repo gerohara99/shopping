@@ -1,9 +1,9 @@
 import firebase from 'firebase'
 
-export const selectPerson = (peopleId) => {
+export const selectShoppingItem = (shoppingItemId) => {
     return {
-        type: 'SELECTED_PERSON',
-        payload: peopleId,
+        type: 'SELECTED_SHOPPING_ITEM',
+        payload: shoppingItemId,
     }
 }
 
@@ -21,22 +21,22 @@ export const formUpdate = ({ prop, value }) => {
 }
 
 export const createNewShoppingItem
-  = ({ first_name,last_name,phone,email,company,project,notes}) => {
+  = ({ shop, shoppingItem }) => {
     const { currentUser } = firebase.auth()
 
     return(dispatch) => {
       firebase.database().ref(`/users/${currentUser.uid}/shopping`)
-      .push({ first_name,last_name,phone,email,company,project,notes})
+        .push({ shop, shoppingItem })
       .catch(error => {
         console.log("Firebase Error - ", error)
       })
       .then(() => {
-        dispatch({type: 'NEW_CONTACT'})
+        dispatch({type: 'NEW_SHOPPING_ITEM'})
       })
     }
 }
 
-export const loadInitialContacts = () => {
+export const loadInitialShoppingItems = () => {
   const { currentUser } = firebase.auth()
 
     return(dispatch) => {
@@ -49,13 +49,13 @@ export const loadInitialContacts = () => {
       )
     }
 }
-export const deleteContact = (uid) => {
+export const deleteShoppingItem = (uid) => {
   const { currentUser } = firebase.auth()
   return(dispatch) => {
     try {
       firebase.database().ref(`/users/${currentUser.uid}/shopping/${uid}`)
       .remove()
-      .then(() => { dispatch({ type: 'DELETE_CONTACT'})})
+      .then(() => { dispatch({ type: 'DELETE_SHOPPPING_ITEM'})})
     } catch (error) {
       console.log("Firebase Error - ", error)
     }
@@ -63,22 +63,22 @@ export const deleteContact = (uid) => {
 }
 
 
-export const updateContact = (personSelected) => {
+export const updateShoppingItem = (shoppingItemSelected) => {
   return {
-    type: 'UPDATE_CONTACT',
-    payload: personSelected,
+    type: 'UPDATE_SHOPPING_ITEM',
+    payload: shoppingItemSelected,
   }
 }
 
-export const saveContact
-  = ({ first_name,last_name,phone,email,company,project,notes, uid}) => {
+export const saveShoppingItem
+  = ({ shop, shoppingItem, uid}) => {
   const { currentUser } = firebase.auth()
 
   return(dispatch) => {
     try {
       firebase.database().ref(`/users/${currentUser.uid}/shopping/${uid}`)
-      .set({ first_name,last_name,phone,email,company,project,notes, uid})
-      .then(() => { dispatch({ type: 'SAVE_CONTACT'})})
+        .set({ shop, shoppingItem, uid})
+      .then(() => { dispatch({ type: 'SAVE_SHOPPING_ITEM'})})
     } catch (error) {
       console.log("Firebase Error - ", error)
     }

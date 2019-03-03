@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
 
 const ShoppingItem = (props) => {
     return (
-      <TouchableWithoutFeedback onPress={() => props.selectPerson(props.people)}>
+      <TouchableWithoutFeedback onPress={() => props.selectShoppingItem(props.shoppingItems)}>
         <View style={[theme.cardStyle, styles.card]}>
           <Image
-            source={{ uri: '/Users/Ger/github/crm/src/images/background.jpg'}}
+            source={{ uri: '/Users/Ger/github/shopping/src/images/background.jpg'}}
             style={[theme.cardImageStyle, styles.image]}
           />
           <Icon
@@ -45,8 +45,8 @@ const ShoppingItem = (props) => {
             size={100}
             style={styles.icon}
           />
-          <Text style={[theme.cardTitleStyle, styles.title]}>{props.people.first_name} {props.people.last_name}</Text>
-          <Text style={[theme.cardActionStyle, styles.action]}>{props.people.company}</Text>
+          <Text style={[theme.cardTitleStyle, styles.title]}>{props.shoppingItems.shop} </Text>
+          <Text style={[theme.cardActionStyle, styles.action]}>{props.shoppingItems.ShoppingItem}</Text>
         </View>
       </TouchableWithoutFeedback>
     );
