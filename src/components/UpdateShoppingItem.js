@@ -49,13 +49,8 @@ const UpdateButton = MKButton.coloredButton()
 type props = {
   saveShoppingItem: function,
   formUpdate: function,
-  first_name: string,
-  last_name: string,
-  phone: string,
-  email: string,
-  company: string,
-  project: string,
-  notes: string,
+  shop: string,
+  shoppingItem: string,
   uid: string,
   }
 

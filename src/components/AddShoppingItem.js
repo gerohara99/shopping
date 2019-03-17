@@ -44,7 +44,7 @@ const AddButton = MKButton.coloredButton()
   .build()
 
 type props = {
-  createNewContact: function,
+  createNewShoppingItem: function,
   navigation: function,
   formUpdate: function,
   shop: string,

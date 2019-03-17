@@ -23,8 +23,10 @@ const styles = StyleSheet.create({
 })
 
 type props = {
-  shops: {},
+  loadInitialShoppingItems: function,
+  shops: {}
 }
+
 type state = {}
 
 class ShopList extends Component <props, state>{
@@ -39,23 +41,22 @@ class ShopList extends Component <props, state>{
     )
   }
 
+componentWillMount() {
+    this.props.loadInitialShoppingItems()
+}
 
-  render() {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    });
-    this.dataSource = ds.cloneWithRows(this.props.shops);
-
+renderInitialView() {
+  const ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2,
+  })
+  this.dataSource = ds.cloneWithRows(this.props.shoppingItems)
     return (
-      <View style={styles.container}>
-        <ListView
-          enableEmptySections={true}
-          dataSource={this.dataSource}
-          renderRow={(rowData) =>
-            <ShopItem shops={rowData} />
-          }
-        />
-      </View>
+      <ListView
+        enableEmptySections={true}
+        dataSource={this.dataSource}
+        renderRow={(rowData) =>
+          <ShopItem shops={rowData} />}
+      />
     )
   }
 }
@@ -64,7 +65,7 @@ const mapStateToProps = state => {
   const shoppingItems = _.map(state.shoppingItems, (val, uid) => {
     return {...val,uid}
   })
-
+}
 const shops =
   _.chain(shoppingItems)
   .groupBy('shop')

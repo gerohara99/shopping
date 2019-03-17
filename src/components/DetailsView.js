@@ -102,7 +102,7 @@ type props = {
   noneSelected: function,
   updateShoppingItem: function,
   deleteShoppingItem: function,
-  
+
   shopping: {
     shop: string,
     shoppingItem: string,
@@ -173,7 +173,6 @@ const mapStateToProps = state => {
   return {
       shopping: state.shoppingItemSelected,
       toUpdate: state.toUpdate,
-
    }
 }
 
