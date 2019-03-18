@@ -55,7 +55,7 @@ export const deleteShoppingItem = (uid) => {
     try {
       firebase.database().ref(`/users/${currentUser.uid}/shopping/${uid}`)
       .remove()
-      .then(() => { dispatch({ type: 'DELETE_SHOPPPING_ITEM'})})
+      .then(() => { dispatch({ type: 'DELETE_SHOPPING_ITEM'})})
     } catch (error) {
       console.log("Firebase Error - ", error)
     }

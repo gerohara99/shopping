@@ -41,15 +41,15 @@ const ShopItem = (props) => {
             style={[theme.cardImageStyle, styles.image]}
           />
           <Icon
-            name={'business'}
+            name={'shop'}
             size={80}
             style={styles.icon}
           />
         <Text style={[theme.cardTitleStyle, styles.title]}>{props.shops.shop}</Text>
-        {props.shops.shopping.map((item) => {
+        {props.shops.shopping.map((shops) => {
           return (
-              <Text key={name.uid} style={[theme.cardActionStyle, styles.action]}>
-                {item.shoppingItem} 
+              <Text key={shops.uid} style={[theme.cardActionStyle, styles.action]}>
+                {shops.shoppingItem} 
               </Text>
           )
         })}

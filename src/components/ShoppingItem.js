@@ -41,12 +41,12 @@ const ShoppingItem = (props) => {
             style={[theme.cardImageStyle, styles.image]}
           />
           <Icon
-            name={'user'}
+            name={'cart'}
             size={100}
             style={styles.icon}
           />
-          <Text style={[theme.cardTitleStyle, styles.title]}>{props.shoppingItems.shop} </Text>
-          <Text style={[theme.cardActionStyle, styles.action]}>{props.shoppingItems.ShoppingItem}</Text>
+          <Text style={[theme.cardTitleStyle, styles.title]}>{props.shoppingItems.shoppingItem} </Text>
+         
         </View>
       </TouchableWithoutFeedback>
     );

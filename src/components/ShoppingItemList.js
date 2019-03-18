@@ -35,7 +35,7 @@ class ShoppingItemList extends Component <props, state> {
     tabBarLabel: 'Shopping',
     tabBarIcon: ({ tintColor }) => (
       <Icon
-        name={'user'}
+        name={'cart'}
         size={50}
         style={{ color: tintColor }}
       />

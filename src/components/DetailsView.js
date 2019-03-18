@@ -131,7 +131,7 @@ class DetailsView extends Component <props, state> {
               source={require('../images/background.jpg')}
               style={[theme.cardImageStyle, styles.image]}
           />
-          <EvilIcon name={'user'} size={100} style={styles.icon}/>
+          <EvilIcon name={'cart'} size={100} style={styles.icon}/>
           <TouchableOpacity style={styles.closeIcon}
             onPress={() => this.props.noneSelected()}>
             <Image
