@@ -9,9 +9,9 @@ import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import ShoppingItem from './ShoppingItem'
-import Icon from 'react-native-vector-icons/EvilIcons'
+import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import ShoppingItemDetail from './ShoppingItemDetail'
-import {loadInitialShoppingItems} from '../actions'
+import { loadInitialShoppingItems } from '../actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +20,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingTop: 20,
     paddingLeft: 20,
+  },
+  screenTitle: {
+    top: 20,
+    left: 10,
+    fontSize: 30,
+    marginTop: 30,
   },
 })
 
@@ -30,15 +36,11 @@ type props = {
 }
 type state = {}
 
-class ShoppingItemList extends Component <props, state> {
+class ShoppingItemList extends Component<props, state> {
   static navigationOptions = {
     tabBarLabel: 'Shopping',
     tabBarIcon: ({ tintColor }) => (
-      <Icon
-        name={'cart'}
-        size={50}
-        style={{ color: tintColor }}
-      />
+      <EvilIcon name={'cart'} size={50} style={styles.icon} />
     )
   }
 
@@ -69,6 +71,7 @@ class ShoppingItemList extends Component <props, state> {
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.screenTitle}> Shopping Items </Text>
         {this.renderInitialView()}
       </View>
     );
@@ -77,7 +80,7 @@ class ShoppingItemList extends Component <props, state> {
 
 const mapStateToProps = state => {
   const shoppingItems = _.map(state.shoppingItems, (val, uid) => {
-    return {...val, uid}
+    return { ...val, uid }
   })
   return {
     shoppingItems,
@@ -85,4 +88,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {loadInitialShoppingItems})(ShoppingItemList)
+export default connect(mapStateToProps, { loadInitialShoppingItems })(ShoppingItemList)

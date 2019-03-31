@@ -1,54 +1,35 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image, ListView } from 'react-native'
 import { getTheme } from 'react-native-material-kit'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const theme = getTheme()
 
 const styles = StyleSheet.create({
-  card: {
+  
+  shop: {
+    top: 20,
+    left: 10,
+    fontSize: 25,
+    marginTop: 30,
+    backgroundColor: 'black',
+    color: 'white',
+  },
+  shoppingItem: {
+    top: 20,
+    left: 10,
+    fontSize: 20,
     marginTop: 20,
-  },
-  title: {
-      top: 20,
-      left: 80,
-      fontSize: 26,
-  },
-  image: {
-      height: 100,
-  },
-  action: {
-      backgroundColor: 'black',
-      color: 'white',
-      paddingBottom: 5,
-      paddingTop: 5,
-  },
-  icon: {
-      position: 'absolute',
-      top: 10,
-      left: 10,
-      color: 'white',
-      backgroundColor: 'rgba(255,255,255,0)',
-  },
+  }
 });
 
 const ShopItem = (props) => {
     return (
       <View>
-        <View style={[theme.cardStyle, styles.card]}>
-          <Image
-            source={{ uri: '/Users/Ger/github/shopping/src/images/background.jpg'}}
-            style={[theme.cardImageStyle, styles.image]}
-          />
-          <Icon
-            name={'shop'}
-            size={80}
-            style={styles.icon}
-          />
-        <Text style={[theme.cardTitleStyle, styles.title]}>{props.shops.shop}</Text>
+        <View>
+        <Text style={[styles.shop]}>{props.shops.shop}</Text>
         {props.shops.shopping.map((shops) => {
           return (
-              <Text key={shops.uid} style={[theme.cardActionStyle, styles.action]}>
+            <Text style= { [styles.shoppingItem]} key={shops.uid} >
                 {shops.shoppingItem} 
               </Text>
           )

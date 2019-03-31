@@ -17,8 +17,6 @@ import { connect } from 'react-redux'
 import { getTheme } from 'react-native-material-kit'
 import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons'
-import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import * as actions from '../actions'
 
 const theme = getTheme()
@@ -30,16 +28,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: 'lightgrey',
     borderWidth: 0.5,
-  },
-  title1: {
-      top: 10,
-      left: 80,
-      fontSize: 22,
-  },
-  title2: {
-      top: 35,
-      left: 82,
-      fontSize: 18,
   },
   image: {
       flex: 0,
@@ -67,15 +55,6 @@ const styles = StyleSheet.create({
       paddingTop: 10,
       width: 260,
   },
-  textIcons: {
-      color: '#26a69a',
-  },
-  actionArea: {
-      paddingTop: 10,
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-  },
   editIcon: {
     color: '#26a6e4',
   },
@@ -87,14 +66,6 @@ const styles = StyleSheet.create({
   },
   deleteIcon: {
     color: '#e9a69a',
-  },
-  editDeleteArea: {
-    flexDirection: 'row',
-    paddingRight: 20,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'rgba(211,211,211,0.3)',
-    marginBottom: 10,
   },
 });
 
@@ -134,9 +105,7 @@ class DetailsView extends Component <props, state> {
           <EvilIcon name={'cart'} size={100} style={styles.icon}/>
           <TouchableOpacity style={styles.closeIcon}
             onPress={() => this.props.noneSelected()}>
-            <Image
-              source={require('../images/close2x.png')}
-              />
+          <EvilIcon name={'close'} size={100} style={styles.icon} />
           </TouchableOpacity>
 
           <View style={styles.textArea}>

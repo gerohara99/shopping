@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/EvilIcons'
+import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
@@ -57,10 +57,7 @@ class AddShoppingItem extends Component <props, state> {
   static navigationOptions = {
     tabBarLabel: 'Add Shopping',
     tabBarIcon: ({ tintColor }) => (
-      <Image
-        style={styles.addButton}
-        source={require('../images/add_button3x.png')}
-      />
+      <EvilIcon name={'plus'} size={60} style={styles.icon} />
     )
   }
 

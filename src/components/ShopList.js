@@ -8,7 +8,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/Entypo'
 import ShopItem from './ShopItem'
 
 const styles = StyleSheet.create({
@@ -18,7 +18,12 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: '#e5e5e5',
+  },
+  screenTitle: {
+    top: 20,
+    left: 10,
+    fontSize: 30,
+    marginTop: 30,
   },
 })
 
@@ -32,11 +37,7 @@ class ShopList extends Component <props, state>{
   static navigationOptions = {
     tabBarLabel: 'Shops',
     tabBarIcon: ({ tintColor }) => (
-      <Icon
-        name={'shop'}
-        size={45}
-        style={{ color: tintColor }}
-      />
+      <Icon name={'shop'} size={50} style={styles.icon} />
     )
   }
 
@@ -48,6 +49,7 @@ class ShopList extends Component <props, state>{
 
     return (
       <View style={styles.container}>
+        <Text style={styles.screenTitle}> Shopping Items By Shop </Text>
         <ListView
           enableEmptySections={true}
           dataSource={this.dataSource}
