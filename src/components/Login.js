@@ -110,7 +110,7 @@ onAuthFailed() {
   }
 
   render() {
-    const { form, fieldStyles, loginButtonArea, errorMessage, container } = styles
+    const { form, fieldStyles, loginButtonArea, errorMessage } = styles
     return (
       <View style={form}>
         <Text style={styles.title}>Login or create an account</Text>

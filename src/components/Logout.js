@@ -5,8 +5,7 @@
  */
 
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ListView } from 'react-native'
-import { connect } from 'react-redux'
+import { Text, View, StyleSheet } from 'react-native'
 import _ from 'lodash'
 import Icon from 'react-native-vector-icons/Feather'
 
@@ -27,11 +26,11 @@ const styles = StyleSheet.create({
 })
 
 type props = {
-  Logout: function,
+  SignOut: function,
 }
 type state = {}
 
-export default class Logout extends Component <props, state> {
+export default class Logout extends Component<props, state> {
   static navigationOptions = {
     tabBarLabel: 'Logout',
     tabBarIcon: ({ tintColor }) => (
@@ -43,7 +42,7 @@ export default class Logout extends Component <props, state> {
     return (
       <View style={styles.container}>
         <Text style={styles.screenTitle}> Logout </Text>
-        {this.props.Logout()}
+        {this.props.SignOut()}
       </View>
     );
   }

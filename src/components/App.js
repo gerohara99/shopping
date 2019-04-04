@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { AsyncStorage } from 'react-native'
 import firebase from 'firebase'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
@@ -14,18 +14,6 @@ import Loader from './Loader'
 import Navigation from './Navigation'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
-import compose from 'lodash'
-
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-})
 
 const store = createStore(
   reducers,
@@ -41,31 +29,36 @@ type state = {
 export default class App extends Component <props, state> {
   state = { loggedIn: false};
 
-    componentWillMount() {
-        firebase.initializeApp({
-          apiKey: "AIzaSyArUsFOCEjBgtgpyvgAEwBcYIr_IhFEIV8",
-          authDomain: "shopping-44bca.firebaseapp.com",
-          databaseURL: "https://shopping-44bca.firebaseio.com",
-          projectId: "shopping-44bca",
-          storageBucket: "shopping-44bca.appspot.com",
-          messagingSenderId: "783286480391"
-        });
+  signout() {
+    AsyncStorage.clear(); // to clear the token 
+    this.setState({ loggedIn: false });
+  }
 
-        firebase.auth().onAuthStateChanged((user) => {
-          if (user) {
-            this.setState({ loggedIn: true })
-          } else {
-            this.setState({ loggedIn: false})
-          }
-        });
-    }
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyArUsFOCEjBgtgpyvgAEwBcYIr_IhFEIV8",
+      authDomain: "shopping-44bca.firebaseapp.com",
+      databaseURL: "https://shopping-44bca.firebaseio.com",
+      projectId: "shopping-44bca",
+      storageBucket: "shopping-44bca.appspot.com",
+      messagingSenderId: "783286480391"
+    });
+
+    AsyncStorage.getItem('token').then((token) => {
+     if (token) {
+      this.setState({ loggedIn: true })
+      } else {
+       console.log('Not Logged in');
+      }
+    })
+  }
 
     renderInitialView() {
       switch (this.state.loggedIn) {
         case true:
-          return <Navigation />
+          return <Navigation signOut={this.signout.bind(this)} />
         case false:
-          return <Login />;
+          return <Login />
         default:
           return <Loader size="large" />
       }

@@ -2,14 +2,11 @@ import { StackNavigator,  TabNavigator } from 'react-navigation'
 import ShoppingItemList from './ShoppingItemList'
 import ShopList from './ShopList'
 import AddShoppingItem from './AddShoppingItem'
-import Logout from './Logout'
-
 
 const Navigation =  TabNavigator ({
     ShoppingItemList: { screen: ShoppingItemList },
     ShopList: { screen: ShopList },
     AddShoppingItem: { screen: AddShoppingItem },
-    Logout: { screen: Logout },
 
 }, {
     tabBarOptions: {

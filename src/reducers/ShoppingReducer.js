@@ -30,13 +30,6 @@ export default (state = initialState, action) => {
                 shoppingItemSelected: null,
             }
 
-        case 'LOGOUT':
-          return {
-            ...state,
-            loggedIn: false,
-            detailView: false,
-          }
-
         case 'FORM_UPDATE':
           return {
             ...state,

@@ -13,12 +13,6 @@ export const noneSelected = () => {
     }
 }
 
-export const Logout = () => {
-  return {
-    type: 'LOGOUT',
-  }
-}
-
 export const formUpdate = ({ prop, value }) => {
     return {
         type: 'FORM_UPDATE',
