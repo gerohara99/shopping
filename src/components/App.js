@@ -27,9 +27,9 @@ type state = {
 }
 
 export default class App extends Component <props, state> {
-  state = { loggedIn: false};
+  state = { loggedIn: null};
 
-  signout() {
+  SignOut() {
     AsyncStorage.clear(); // to clear the token 
     this.setState({ loggedIn: false });
   }
@@ -43,20 +43,20 @@ export default class App extends Component <props, state> {
       storageBucket: "shopping-44bca.appspot.com",
       messagingSenderId: "783286480391"
     });
-
-    AsyncStorage.getItem('token').then((token) => {
-     if (token) {
-      this.setState({ loggedIn: true })
+    
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ loggedIn: true });
       } else {
-       console.log('Not Logged in');
+        this.setState({ loggedIn: false });
       }
-    })
+    });
   }
 
     renderInitialView() {
       switch (this.state.loggedIn) {
         case true:
-          return <Navigation signOut={this.signout.bind(this)} />
+          return <Navigation SignOut={this.SignOut.bind(this)} />
         case false:
           return <Login />
         default:
