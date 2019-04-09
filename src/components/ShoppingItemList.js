@@ -9,7 +9,6 @@ import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import ShoppingItem from './ShoppingItem'
-import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import ShoppingItemDetail from './ShoppingItemDetail'
 import { loadInitialShoppingItems } from '../actions'
 
@@ -37,12 +36,6 @@ type props = {
 type state = {}
 
 class ShoppingItemList extends Component<props, state> {
-  static navigationOptions = {
-    tabBarLabel: 'Shopping',
-    tabBarIcon: ({ tintColor }) => (
-      <EvilIcon name={'cart'} size={50} style={styles.icon} />
-    )
-  }
 
   componentWillMount() {
     this.props.loadInitialShoppingItems()

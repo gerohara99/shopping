@@ -3,15 +3,14 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
 import Loader from './Loader';
 import firebase from 'firebase';
 
-const LoginButton = MKButton.coloredButton()
-    .withText('LOGIN')
+const SignInButton = MKButton.coloredButton()
+    .withText('SIGN IN')
     .build();
 
 const styles = StyleSheet.create({
@@ -60,7 +59,7 @@ type state = {
     loading: boolean,
 }
 
-export default class Login extends Component {
+export default class SignOut extends Component <props, state> {
   state = {
       email: '',
       password: '',
@@ -86,7 +85,7 @@ export default class Login extends Component {
         email: '',
         password: '',
         error: '',
-        loading: false, 
+        loading: false,
       });
   }
 
@@ -101,7 +100,7 @@ onAuthFailed() {
     if (this.state.loading) {
         return <Loader size="large"/>;
     } else {
-        return <LoginButton onPress={this.onButtonPress.bind(this)} />
+        return <SignInButton onPress={this.onButtonPress.bind(this)} />
     }
   }
 
@@ -110,14 +109,14 @@ onAuthFailed() {
     return (
       <View style={form}>
         <Text style={styles.title}>Login or create an account</Text>
-        <MKTextField 
+        <MKTextField
             text={this.state.email}
             onTextChange={email => this.setState({ email })}
             textInputStyle={fieldStyles}
             placeholder={'Email...'}
             tintColor={MKColor.Teal}
         />
-        <MKTextField 
+        <MKTextField
             text={this.state.password}
             onTextChange={password => this.setState({ password })}
             textInputStyle={fieldStyles}

@@ -3,11 +3,10 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import _ from 'lodash'
-import Icon from 'react-native-vector-icons/Feather'
+import { onSignIn } from "./auth"
 
 const styles = StyleSheet.create({
   container: {
@@ -25,24 +24,16 @@ const styles = StyleSheet.create({
   },
 })
 
-type props = {
-  SignOut: function,
-}
+type props = {}
 type state = {}
 
-export default class Logout extends Component<props, state> {
-  static navigationOptions = {
-    tabBarLabel: 'Logout',
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name={'power'} size={40} style={styles.icon} />
-    )
-  }
+export default class SignOut extends Component<props, state> {
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.screenTitle}> Logout </Text>
-        {this.props.SignOut()}
+        onSignIn().then(() => navigation.navigate("SignedOut"));
       </View>
     );
   }

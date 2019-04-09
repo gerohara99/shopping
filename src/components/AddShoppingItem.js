@@ -10,6 +10,7 @@ import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import { onSignIn } from './auth'
 
 
 const styles = StyleSheet.create({
@@ -54,18 +55,12 @@ type props = {
 type state = {}
 
 class AddShoppingItem extends Component <props, state> {
-  static navigationOptions = {
-    tabBarLabel: 'Add Shopping',
-    tabBarIcon: ({ tintColor }) => (
-      <EvilIcon name={'plus'} size={60} style={styles.icon} />
-    )
-  }
 
   onAddPress() {
     const { shop, shoppingItem }= this.props
-    this.props.createNewShoppingItem({ shop, shoppingItem  })
+    this.props.createNewShoppingItem({ shop, shoppingItem })
 
-    this.props.navigation.navigate('ShoppingItemList')
+    onSignIn().then(() => navigation.navigate("SignedIn"));
   }
 
   render() {

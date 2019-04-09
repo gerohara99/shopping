@@ -8,7 +8,6 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import Icon from 'react-native-vector-icons/Entypo'
 import ShopItem from './ShopItem'
 
 const styles = StyleSheet.create({
@@ -34,12 +33,6 @@ type props = {
 type state = {}
 
 class ShopList extends Component <props, state>{
-  static navigationOptions = {
-    tabBarLabel: 'Shops',
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name={'shop'} size={50} style={styles.icon} />
-    )
-  }
 
   render() {
     const ds = new ListView.DataSource({

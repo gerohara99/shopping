@@ -6,32 +6,28 @@
 
 import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
-import firebase from 'firebase'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import Login from './Login'
-import Loader from './Loader'
-import Navigation from './Navigation'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
+import firebase from 'firebase'
+import { createRootNavigator } from "./Router"
+import { isSignedIn } from "./Auth"
+import Loader from './Loader'
 
 const store = createStore(
   reducers,
   applyMiddleware(thunk),
 )
 
-type props = {}
+export default class App extends Component {
+  constructor(props) {
+    super(props)
 
-type state = {
-  loggedIn: boolean,
-}
-
-export default class App extends Component <props, state> {
-  state = { loggedIn: null};
-
-  SignOut() {
-    AsyncStorage.clear(); // to clear the token 
-    this.setState({ loggedIn: false });
+    this.state = {
+      signedIn: false,
+      checkedSignIn: false
+    }
   }
 
   componentWillMount() {
@@ -42,32 +38,31 @@ export default class App extends Component <props, state> {
       projectId: "shopping-44bca",
       storageBucket: "shopping-44bca.appspot.com",
       messagingSenderId: "783286480391"
-    });
-    
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ loggedIn: true });
-      } else {
-        this.setState({ loggedIn: false });
-      }
-    });
+    })
   }
 
-    renderInitialView() {
-      switch (this.state.loggedIn) {
-        case true:
-          return <Navigation SignOut={this.SignOut.bind(this)} />
-        case false:
-          return <Login />
-        default:
-          return <Loader size="large" />
-      }
+  componentDidMount() {
+    isSignedIn()
+      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
+      .catch(err => alert("An error occurred"));
+  }
+
+  renderInitialView() {
+    const { checkedSignIn, signedIn } = this.state;
+    // If we haven't checked AsyncStorage yet, don't render anything (better ways to do this)
+    if (!checkedSignIn) {
+      return null;
     }
-    render() {
-      return (
-        <Provider store={store}>
-              {this.renderInitialView()}
-        </Provider>
-      );
+
+    const Layout = createRootNavigator(signedIn);
+    return <Layout />;
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        {this.renderInitialView()}
+      </Provider>
+    )
   }
 }
