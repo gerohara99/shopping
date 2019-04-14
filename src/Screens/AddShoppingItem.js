@@ -10,7 +10,7 @@ import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import { onSignIn } from './auth'
+import { onSignIn } from '../components/auth'
 
 
 const styles = StyleSheet.create({

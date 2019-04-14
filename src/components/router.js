@@ -4,10 +4,10 @@ import { StackNavigator, TabNavigator, SwitchNavigator} from "react-navigation";
 import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import Icon from 'react-native-vector-icons/Entypo'
 import Icon from 'react-native-vector-icons/Feather'
-import SignedOut from "./SignedOut"
-import SignedIn from "./SignedIn"
-import ShoppingItemList from "./ShoppingItemList"
-import AddShoppingItem from "./SignedOut"
+import SignedOut from "../Screens/SignedOut"
+import SignedIn from "../Screens/SignedIn"
+import ShoppingItemList from "../Screens/ShoppingItemList"
+import AddShoppingItem from "../Screens/SignedOut"
 
 import ShopList from "./ShopList"
 

@@ -59,7 +59,7 @@ type state = {
     loading: boolean,
 }
 
-export default class SignOut extends Component <props, state> {
+export default class SignIn extends Component <props, state> {
   state = {
       email: '',
       password: '',

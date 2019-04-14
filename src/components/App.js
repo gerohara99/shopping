@@ -13,7 +13,7 @@ import thunk from 'redux-thunk'
 import firebase from 'firebase'
 import { createRootNavigator } from "./Router"
 import { isSignedIn } from "./Auth"
-import Loader from './Loader'
+import Loader from '../Screens/Loader'
 
 const store = createStore(
   reducers,
