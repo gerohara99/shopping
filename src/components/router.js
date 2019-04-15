@@ -1,17 +1,13 @@
 import React from "react";
 import { Platform, StatusBar } from "react-native";
-import { StackNavigator, TabNavigator, SwitchNavigator} from "react-navigation";
-import EvilIcon from 'react-native-vector-icons/EvilIcons'
-import Icon from 'react-native-vector-icons/Entypo'
-import Icon from 'react-native-vector-icons/Feather'
-import SignedOut from "../Screens/SignedOut"
-import SignedIn from "../Screens/SignedIn"
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
+import AntDesignIcon from 'react-native-vector-icons/AntDesign'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import SignIn from "../Screens/SignIn"
+import SignOut from "../Screens/SignOut"
+import ShopList from "../Screens/ShopList"
 import ShoppingItemList from "../Screens/ShoppingItemList"
-import AddShoppingItem from "../Screens/SignedOut"
-
-import ShopList from "./ShopList"
-
-
+import AddShoppingItem from "../Screens/AddShoppingItem"
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -25,7 +21,7 @@ export const SignedOut = createStackNavigator({
       headerStyle
     }
   },
-});
+})
 
 export const SignedIn = createBottomTabNavigator(
   {
@@ -34,7 +30,7 @@ export const SignedIn = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "Shopping",
         tabBarIcon: ({ tintColor }) => (
-          <EvilIcon name={'cart'} size={50}/>
+          <AntDeisgnIcon name={'shoppingcart'} size={50}/>
         )
       }
     },
@@ -43,7 +39,7 @@ export const SignedIn = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "Shops",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name={'shop'} size={50} style={styles.icon} />
+          <EntypoIcon name={'shop'} size={50} style={styles.icon} />
         )
       }
     },
@@ -52,7 +48,7 @@ export const SignedIn = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "Add Shopping",
         tabBarIcon: ({ tintColor }) => (
-        <EvilIcon name={'plus'} size={60} style={styles.icon} />
+        <EntypoIcon name={'add-to-list'} size={60} style={styles.icon} />
         )
       }
     },
@@ -61,7 +57,7 @@ export const SignedIn = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "SignOut",
         tabBarIcon: ({ tintColor }) => (
-        <Icon name={'power'} size={40} style={styles.icon} />
+        <AntDesignIcon name={'logout'} size={40} style={styles.icon} />
       )
     }
   },
@@ -77,10 +73,10 @@ export const createRootNavigator = (signedIn = false) => {
   return createSwitchNavigator(
     {
       SignedIn: {
-        screen: SignedIn
+        screen: SignIn
       },
       SignedOut: {
-        screen: SignedOut
+        screen: SignOut
       }
     },
     {

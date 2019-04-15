@@ -6,7 +6,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import _ from 'lodash'
-import { onSignIn } from "./auth"
+import { onSignIn } from "../components/Auth"
 
 const styles = StyleSheet.create({
   container: {
