@@ -9,18 +9,12 @@ import ShopList from "../Screens/ShopList"
 import ShoppingItemList from "../Screens/ShoppingItemList"
 import AddShoppingItem from "../Screens/AddShoppingItem"
 
-const headerStyle = {
+export const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-};
+}
 
-export const SignedOut = createStackNavigator({
-  SignUp: {
-    screen: SignIn,
-    navigationOptions: {
-      title: "Sign In",
-      headerStyle
-    }
-  },
+const SignedOut = createStackNavigator({
+  SignIn: { screen: SignIn}
 })
 
 export const SignedIn = createBottomTabNavigator(
@@ -73,14 +67,14 @@ export const createRootNavigator = (signedIn = false) => {
   return createSwitchNavigator(
     {
       SignedIn: {
-        screen: SignIn
+        screen: SignedIn
       },
       SignedOut: {
-        screen: SignOut
+        screen: SignedOut
       }
     },
     {
       initialRouteName: signedIn ? "SignedIn" : "SignedOut"
     }
-  );
-};
+  )
+}
