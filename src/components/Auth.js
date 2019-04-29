@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import { AsyncStorage } from "AsyncStorage";
 
 export const USER_KEY = "user-shopping-key";
 

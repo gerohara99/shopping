@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "AsyncStorage": "^0.1.5",
     "firebase": "^5.7.2",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
@@ -17,12 +18,15 @@
     "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^3.8.1",
     "react-redux": "^6.0.0",
+    "react-slider": "^0.11.2",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
     "babel-preset-react-native": "1.9.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.12.4",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "^0.51.0",
     "react-test-renderer": "16.6.3",

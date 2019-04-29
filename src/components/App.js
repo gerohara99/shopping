@@ -33,6 +33,67 @@ const store = createStore(
   applyMiddleware(thunk),
 )
 
+type props = {}
+type state = {}
+
+export default class App extends Component<props, state> {
+  constructor(props) {
+    super(props)
+    this.state = {
+      signedIn: false,
+      checkedSignIn: false
+    }
+  }
+
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyArUsFOCEjBgtgpyvgAEwBcYIr_IhFEIV8",
+      authDomain: "shopping-44bca.firebaseapp.com",
+      databaseURL: "https://shopping-44bca.firebaseio.com",
+      projectId: "shopping-44bca",
+      storageBucket: "shopping-44bca.appspot.com",
+      messagingSenderId: "783286480391"
+    })
+  }
+
+  componentDidMount() {
+    isSignedIn()
+      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
+      .catch(err => alert("An error occurred"));
+  }
+
+  renderInitialView() {
+    const { checkedSignIn, signedIn } = this.state;
+    // If we haven't checked AsyncStorage yet, don't render anything (better ways to do this)
+    if (!checkedSignIn) {
+      return null;
+    }
+    return <AppContainer />;
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        {this.renderInitialView()}
+      </Provider>
+    )
+  }
+}
+
+class WelcomeScreen extends Component<props, state> {
+  render() { return <SignIn />}
+}
+
+class DashboardScreen extends Component<props, state> {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>DashboardScreen</Text>
+      </View>
+    );
+  }
+}
+
 const DashboardTabNavigator = createBottomTabNavigator(
   {
     ShopList,
@@ -80,76 +141,6 @@ const AppSwitchNavigator = createSwitchNavigator({
 })
 
 const AppContainer = createAppContainer(AppSwitchNavigator)
-
-type props = {}
-type state = {}
-
-export default class App extends Component <props, state> {
-  constructor(props) {
-    super(props)
-    this.state = {
-      signedIn: false,
-      checkedSignIn: false
-    }
-  }
-
-  componentWillMount() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyArUsFOCEjBgtgpyvgAEwBcYIr_IhFEIV8",
-      authDomain: "shopping-44bca.firebaseapp.com",
-      databaseURL: "https://shopping-44bca.firebaseio.com",
-      projectId: "shopping-44bca",
-      storageBucket: "shopping-44bca.appspot.com",
-      messagingSenderId: "783286480391"
-    })
-  }
-
-  componentDidMount() {
-    isSignedIn()
-      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
-      .catch(err => alert("An error occurred"));
-  }
-
-  renderInitialView() {
-    const { checkedSignIn, signedIn } = this.state;
-    // If we haven't checked AsyncStorage yet, don't render anything (better ways to do this)
-    if (!checkedSignIn) {
-      return null;
-    }
-    return <AppContainer />;
-  }
-
-  render() {
-    return (
-        <Provider store={store}>
-          {this.renderInitialView()}
-        </Provider>
-    )
-  }
-}
-
-class WelcomeScreen extends Component <props, state> {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button
-          title="Login"
-          onPress={() => this.props.navigation.navigate('Dashboard')}
-        />
-      </View>
-    )
-  }
-}
-
-class DashboardScreen extends Component <props, state> {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>DashboardScreen</Text>
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
