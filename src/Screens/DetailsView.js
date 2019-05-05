@@ -120,7 +120,7 @@ class DetailsView extends Component <props, state> {
            </Text>
           </View>
 
-          <View style={styles.editArea}>
+          <View>
               <TouchableOpacity style={styles.sections}
               onPress={() => {this.props.updateShoppingItem(this.props.shopping) }}>
                  <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>

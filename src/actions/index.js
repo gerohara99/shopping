@@ -1,5 +1,12 @@
 import firebase from 'firebase'
 
+export const setSignedIn = () => {
+    return {
+        type: 'SET_SIGNED_IN',
+        payload: {prop, value}
+    }
+}
+
 export const selectShoppingItem = (shoppingItemId) => {
     return {
         type: 'SELECTED_SHOPPING_ITEM',

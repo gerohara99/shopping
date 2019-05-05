@@ -6,10 +6,19 @@ const initialState = {
     shoppingItem: '',
     loadingShoppingItems: false,
     toUpdate: false,
+    signedIn: false,
+    checkedSignIn: false
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        case 'SET_SIGNED_IN': {
+          return {
+            ...state,
+            [action.payload.prop]: action.payload.value,
+          }
+        }
         case 'INITIAL_FETCH': {
           return {
             ...state,

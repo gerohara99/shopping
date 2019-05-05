@@ -21,6 +21,7 @@ import {
 
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { isSignedIn } from "./Auth"
+import * as actions from '../actions'
 import Loader from '../Screens/Loader'
 import SignIn from "../Screens/SignIn"
 import SignOut from "../Screens/SignOut"
@@ -33,17 +34,15 @@ const store = createStore(
   applyMiddleware(thunk),
 )
 
-type props = {}
+var signedInIndicator = ""
+
+type props = {
+  setSignedIn: function,
+}
+
 type state = {}
 
 export default class App extends Component<props, state> {
-  constructor(props) {
-    super(props)
-    this.state = {
-      signedIn: false,
-      checkedSignIn: false
-    }
-  }
 
   componentWillMount() {
     firebase.initializeApp({
@@ -58,23 +57,17 @@ export default class App extends Component<props, state> {
 
   componentDidMount() {
     isSignedIn()
-      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
+      .then(res => (
+          this.props.setSignedIn({ signedIn: res, checkedSignIn: true }),
+          signedInIndicator = res
+        ))
       .catch(err => alert("An error occurred"));
-  }
-
-  renderInitialView() {
-    const { checkedSignIn, signedIn } = this.state;
-    // If we haven't checked AsyncStorage yet, don't render anything (better ways to do this)
-    if (!checkedSignIn) {
-      return null;
-    }
-    return <AppContainer />;
   }
 
   render() {
     return (
       <Provider store={store}>
-        {this.renderInitialView()}
+        <AppContainer />
       </Provider>
     )
   }
@@ -135,10 +128,13 @@ const AppDrawerNavigator = createDrawerNavigator({
   }
 })
 
-const AppSwitchNavigator = createSwitchNavigator({
-  Welcome: { screen: WelcomeScreen },
-  Dashboard: { screen: AppDrawerNavigator }
-})
+const AppSwitchNavigator = createSwitchNavigator(
+  {
+    Welcome: { screen: WelcomeScreen },
+    Dashboard: { screen: AppDrawerNavigator }
+  },
+  { initialRouteName: signedInIndicator ? "Dashboard" : "Welcome" }
+)
 
 const AppContainer = createAppContainer(AppSwitchNavigator)
 

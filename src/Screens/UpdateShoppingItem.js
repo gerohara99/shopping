@@ -63,7 +63,7 @@ class UpdateShoppingItem extends Component <props, state>{
       <Icon
         name={'plus'}
         size={70}
-        style={[{ color: tintColor }, styles.icon]}
+        style={[{ color: tintColor }]}
       />
     )
   }

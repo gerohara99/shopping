@@ -9,8 +9,10 @@ import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
 import EvilIcon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
+import { navigation } from 'react-navigation'
 import * as actions from '../actions'
 import { onSignIn } from '../components/Auth'
+
 
 
 const styles = StyleSheet.create({
@@ -59,7 +61,6 @@ class AddShoppingItem extends Component <props, state> {
   onAddPress() {
     const { shop, shoppingItem }= this.props
     this.props.createNewShoppingItem({ shop, shoppingItem })
-
     onSignIn().then(() => navigation.navigate("SignedIn"));
   }
 
