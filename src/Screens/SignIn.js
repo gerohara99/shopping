@@ -3,11 +3,12 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
-import Loader from './Loader';
-import firebase from 'firebase';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
+import Loader from './Loader'
+import firebase from 'firebase'
+import { AsyncStorage } from "AsyncStorage"
 
 const SignInButton = MKButton.coloredButton()
     .withText('SIGN IN')
@@ -86,14 +87,18 @@ export default class SignIn extends Component <props, state> {
         password: '',
         error: '',
         loading: false,
-      });
+      })
+      console.log("got it")
+      AsyncStorage.setItem("user-shopping-key", "true")
+      .then(() => console.log('async storage successfully updated'))
+      .catch(err => console.log('something went wrong', err))
   }
 
 onAuthFailed() {
     this.setState({
         error: 'Authentication Failed',
         loading: false,
-    });
+    })
 }
 
   renderLoader() {

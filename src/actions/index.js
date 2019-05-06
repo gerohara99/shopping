@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-export const setSignedIn = () => {
+export const setSignedIn = (prop, value) => {
     return {
         type: 'SET_SIGNED_IN',
         payload: {prop, value}

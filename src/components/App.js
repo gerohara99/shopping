@@ -5,12 +5,14 @@
  */
 
 import React, { Component } from 'react'
-import { AsyncStorage,View,Text,StyleSheet,Button} from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
 import firebase from 'firebase'
+import { AsyncStorage } from "AsyncStorage"
+
+import { View, Text, StyleSheet } from 'react-native'
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -20,29 +22,27 @@ import {
 } from 'react-navigation'
 
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import { isSignedIn } from "./Auth"
-import * as actions from '../actions'
-import Loader from '../Screens/Loader'
-import SignIn from "../Screens/SignIn"
-import SignOut from "../Screens/SignOut"
-import ShopList from "../Screens/ShopList"
-import ShoppingItemList from "../Screens/ShoppingItemList"
-import AddShoppingItem from "../Screens/AddShoppingItem"
+import SignIn from '../Screens/SignIn'
+import ShopList from '../Screens/ShopList'
+import ShoppingItemList from '../Screens/ShoppingItemList'
+import AddShoppingItem from '../Screens/AddShoppingItem'
+
+export const USER_KEY = "user-shopping-key";
+
+const isSignedIn = async () => {
+  try {
+    await AsyncStorage.getItem(USER_KEY)
+  } catch (error) {
+    return false
+  }
+    return true
+}
 
 const store = createStore(
   reducers,
   applyMiddleware(thunk),
 )
-
-var signedInIndicator = ""
-
-type props = {
-  setSignedIn: function,
-}
-
-type state = {}
-
-export default class App extends Component<props, state> {
+export default class App extends Component {
 
   componentWillMount() {
     firebase.initializeApp({
@@ -55,15 +55,6 @@ export default class App extends Component<props, state> {
     })
   }
 
-  componentDidMount() {
-    isSignedIn()
-      .then(res => (
-          this.props.setSignedIn({ signedIn: res, checkedSignIn: true }),
-          signedInIndicator = res
-        ))
-      .catch(err => alert("An error occurred"));
-  }
-
   render() {
     return (
       <Provider store={store}>
@@ -73,17 +64,17 @@ export default class App extends Component<props, state> {
   }
 }
 
-class WelcomeScreen extends Component<props, state> {
-  render() { return <SignIn />}
+class WelcomeScreen extends Component {
+  render() { return <SignIn /> }
 }
 
-class DashboardScreen extends Component<props, state> {
+class DashboardScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>DashboardScreen</Text>
       </View>
-    );
+    )
   }
 }
 
@@ -133,15 +124,7 @@ const AppSwitchNavigator = createSwitchNavigator(
     Welcome: { screen: WelcomeScreen },
     Dashboard: { screen: AppDrawerNavigator }
   },
-  { initialRouteName: signedInIndicator ? "Dashboard" : "Welcome" }
+  { initialRouteName: isSignedIn ? "Welcome" : "Dashboard" }
 )
 
 const AppContainer = createAppContainer(AppSwitchNavigator)
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})

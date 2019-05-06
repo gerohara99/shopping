@@ -11,7 +11,6 @@ import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
 import { navigation } from 'react-navigation'
 import * as actions from '../actions'
-import { onSignIn } from '../components/Auth'
 
 
 

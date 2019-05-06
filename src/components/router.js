@@ -1,3 +1,49 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import {
+  createSwitchNavigator,
+  createAppContainer,
+  createDrawerNavigator,
+  createBottomTabNavigator,
+  createStackNavigator
+} from 'react-navigation'
+
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import SignIn from '../Screens/SignIn'
+import ShopList from '../Screens/ShopList'
+import ShoppingItemList from '../Screens/ShoppingItemList'
+import AddShoppingItem from '../Screens/AddShoppingItem'
+
+var signedInIndicator = true
+
+//var signedInIndicator = isSignedIn()
+//    if (signedInIndicator) {
+//      this.props.setSignedIn({ signedIn: true, checkedSignIn: true })
+//    } else {
+//      this.props.setSignedIn({ signedIn: false, checkedSignIn: true })
+//    }
+//  }
+
+class WelcomeScreen extends Component {
+  render() { return <SignIn /> }
+}
+
+class DashboardScreen extends Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>DashboardScreen</Text>
+      </View>
+    )
+  }
+}
+
 const DashboardTabNavigator = createBottomTabNavigator(
   {
     ShopList,
@@ -21,7 +67,7 @@ const DashboardStackNavigator = createStackNavigator(
     defaultNavigationOptions: ({ navigation }) => {
       return {
         headerLeft: (
-          <Icon
+          <MaterialIcon
             style={{ paddingLeft: 10 }}
             onPress={() => navigation.openDrawer()}
             name="md-menu"
@@ -39,12 +85,15 @@ const AppDrawerNavigator = createDrawerNavigator({
   }
 })
 
-const AppSwitchNavigator = createSwitchNavigator({
-  Welcome: { screen: WelcomeScreen },
-  Dashboard: { screen: AppDrawerNavigator }
-})
+const AppSwitchNavigator = createSwitchNavigator(
+  {
+    Welcome: { screen: WelcomeScreen },
+    Dashboard: { screen: AppDrawerNavigator }
+  },
+  { initialRouteName: signedInIndicator ? "Dashboard" : "Welcome" }
+)
 
-const AppContainer = createAppContainer(AppSwitchNavigator)
+export default calss AppContainer = createAppContainer(AppSwitchNavigator)
 
 const styles = StyleSheet.create({
   container: {
