@@ -14,6 +14,8 @@ const SignInButton = MKButton.coloredButton()
     .withText('SIGN IN')
     .build();
 
+export const USER_KEY = "user-shopping-key"
+
 const styles = StyleSheet.create({
     form: {
         flex: 1,
@@ -88,10 +90,14 @@ export default class SignIn extends Component <props, state> {
         error: '',
         loading: false,
       })
-      console.log("got it")
-      AsyncStorage.setItem("user-shopping-key", "true")
-      .then(() => console.log('async storage successfully updated'))
-      .catch(err => console.log('something went wrong', err))
+
+      _storeData = async () => {
+        try {
+          await AsyncStorage.setItem(USER_KEY, USER_KEY)
+        } catch (error) {
+          console.log("Error setting asyncstorage", error)
+        }
+      }
   }
 
 onAuthFailed() {

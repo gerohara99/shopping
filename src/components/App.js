@@ -27,16 +27,9 @@ import ShopList from '../Screens/ShopList'
 import ShoppingItemList from '../Screens/ShoppingItemList'
 import AddShoppingItem from '../Screens/AddShoppingItem'
 
-export const USER_KEY = "user-shopping-key";
+export const USER_KEY = "user-shopping-key"
 
-const isSignedIn = async () => {
-  try {
-    await AsyncStorage.getItem(USER_KEY)
-  } catch (error) {
-    return false
-  }
-    return true
-}
+var isSignedIn = null
 
 const store = createStore(
   reducers,
@@ -53,6 +46,19 @@ export default class App extends Component {
       storageBucket: "shopping-44bca.appspot.com",
       messagingSenderId: "783286480391"
     })
+  }
+
+  componentDidlMount() {
+    isSignedIn = async () => {
+      try {
+        const value = await AsyncStorage.getItem(USER_KEY)
+        if (value !== null) {
+          console.log('User already logged in', value)
+        }
+      } catch (error) {
+        console.log('User not logged in', error)
+      }
+    }
   }
 
   render() {
