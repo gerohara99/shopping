@@ -6,22 +6,25 @@
 
 import  React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'remote-redux-devtools'
 import firebase from 'firebase'
 
 import {
-  createBottomTabNavigator,
-  createStackNavigator,
+  createSwitchNavigator,
   createAppContainer,
+  createDrawerNavigator,
+  createBottomTabNavigator,
+  createStackNavigator
 } from 'react-navigation'
 
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
-import SignOutScreen from '../Screens/SignOutScreen'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import SignOut from '../Screens/SignOut'
 import SignInScreen from '../Screens/SignInScreen'
 import ShopList from '../Screens/ShopList'
 import ShoppingItemList from '../Screens/ShoppingItemList'
@@ -40,7 +43,7 @@ const enhancer = composeEnhancers(
 
 const store = createStore(reducers, enhancer);
 
-const Tabs = createBottomTabNavigator(
+const DashboardTabNavigator = createBottomTabNavigator(
   {
     ShopList: {
       screen: ShopList,
@@ -69,8 +72,8 @@ const Tabs = createBottomTabNavigator(
         )
       }
     },
-    SignOutScreen: {
-      screen: SignOutScreen,
+    SignOut: {
+      screen: SignOut,
       navigationOptions: {
         tabBarLabel: "SignOut",
         tabBarIcon: ({ tintColor }) => (
@@ -78,15 +81,52 @@ const Tabs = createBottomTabNavigator(
         )
       }
     }
+  },
+  {
+    navigationOptions: ({ navigation }) => {
+      const { routeName } = navigation.state.routes[navigation.state.index];
+      return {
+        headerTitle: routeName
+      };
+    }
+  }
+)
+const RootStack = createStackNavigator(
+  {
+    DashboardTabNavigator: DashboardTabNavigator
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => {
+      return {
+        headerLeft: (
+          <Ionicons
+            style={{ paddingLeft: 10 }}
+            onPress={() => navigation.openDrawer()}
+            name="md-menu"
+            size={30}
+          />
+        )
+      }
+    }
   }
 )
 
-const AppNavigator = createStackNavigator({
-  SignInScreen: { screen: SignInScreen },
-  HomeScreen: { screen: Tabs }
+const AppDrawerNavigator = createDrawerNavigator({
+  Dashboard: {
+    screen: RootStack
+  }
 })
 
-const AppContainer = createAppContainer(AppNavigator)
+const AppSwitchNavigator = createSwitchNavigator(
+  {
+    SignIn: { screen: SignInScreen },
+    Dashboard: { screen: AppDrawerNavigator }
+  },
+    { initialRouteName: "SignIn"
+  }
+)
+
+export const AppContainer = createAppContainer(AppSwitchNavigator)
 
 export default class App extends Component {
 

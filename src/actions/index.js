@@ -1,11 +1,23 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
 import firebase from 'firebase'
 
-export const setSignedIn = (prop, value) => {
-    return {
-        type: 'SET_SIGNED_IN',
-        payload: {prop, value}
-    }
+export const signIn = () => {
+  return {
+    type: 'SIGN_IN',
+  }
 }
+
+export const signOut = () => {
+  return {
+    type: 'SIGN_OUT',
+  }
+}
+
 
 export const selectShoppingItem = (shoppingItemId) => {
     return {
