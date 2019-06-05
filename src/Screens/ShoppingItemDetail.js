@@ -19,6 +19,9 @@ const theme = getTheme()
 
 type props = {
   toUpdate: boolean,
+  shoppingItemSelectedKey: String,
+  shoppingItemSelected: String,
+  shopSelected: String
 }
 
 type state = {}
@@ -42,9 +45,8 @@ class ShoppingItemDetail extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  return {
-      toUpdate: state.toUpdate
-   };
-};
+  const { shoppingItemSelectedKey, shoppingItemSelected, shopSelected, toUpdate } = state
+  return ({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected, toUpdate })
+}
 
 export default connect(mapStateToProps, actions)(ShoppingItemDetail)

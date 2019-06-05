@@ -1,23 +1,24 @@
 const initialState = {
-    shoppingItems: [],
-    detailView: false,
-    shoppingItemSelected: null,
-    shop: '',
-    shoppingItem: '',
-    loadingShoppingItems: false,
-    toUpdate: false,
     email: '',
     password: '',
-    loading: false,
+    currentUser : {},
+    shoppingItems: [],
+    shoppingItemKeySelected: null,
+    shoppingItemSelected: '',
+    shopSelected: '',
+    detailView: false,
+    toUpdate: false,
+    loading: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
 
-      case "SIGN_IN":
+      case 'SIGN_IN':
         return {
           ...state,
           loading: true,
+          currentUser: action.payload
         }
         
       case 'SIGN_OUT':
@@ -26,21 +27,25 @@ export default (state = initialState, action) => {
       case 'INITIAL_FETCH': 
         return {
           ...state,
-          shoppingItems: action.payload,
+          shoppingItems: action.payload
         }
         
       case 'SELECTED_SHOPPING_ITEM': 
         return {
           ...state,
           detailView: true,
-          shoppingItemSelected: action.payload,
+          shoppingItemKeySelected: action.payload.uid,
+          shoppingItemSelected: action.payload.shoppingItem,
+          shopSelected: action.payload.shop
         }
         
       case 'NONE_SELECTED': 
         return {
           ...state,
           detailView: false,
-          shoppingItemSelected: null,
+          shoppingItemKeySelected: null,
+          shoppingItemSelected: '',
+          shopSelected: ''
         }
         
       case 'FORM_UPDATE': 
@@ -52,9 +57,9 @@ export default (state = initialState, action) => {
       case 'NEW_SHOPPING_ITEM': 
         return {
           ...state,
-          shop: '',
-          shoppingItem: '',
-          uid: '',
+          shoppingItemKeySelected: null,
+          shoppingItemSelected: '',
+          shopSelected: ''
         }
         
       case 'SAVE_SHOPPING_ITEM': 
@@ -62,9 +67,9 @@ export default (state = initialState, action) => {
           ...state,
           toUpdate: false,
           detailView: false,
-          shop: '',
-          shoppingItem: '',
-          uid: '',
+          shoppingItemKeySelected: null,
+          shoppingItemSelected: '',
+          shopSelected: ''
         }
         
       case 'ADD_SHOPPING_ITEM': 
@@ -77,16 +82,16 @@ export default (state = initialState, action) => {
         return {
           ...state,
           toUpdate: true,
-          shop: action.payload.shop,
-          shoppingItem: action.payload.shoppingItem,
-          uid: action.payload.uid,
+          [action.payload.prop]: action.payload.value
         }
         
       case 'DELETE_SHOPPING_ITEM': 
         return {
           ...state,
           detailView: false,
-          shoppingItemSelected: null
+          shoppingItemKeySelected: null,
+          shoppingItemSelected: '',
+          shopSelected: ''
         }
         
       default:

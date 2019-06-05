@@ -36,7 +36,7 @@ const ShopItem = (props) => {
         })}
       </View>
     </View>
-  );
-};
+  )
+}
 
 export default ShopItem

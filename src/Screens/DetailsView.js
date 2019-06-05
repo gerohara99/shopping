@@ -73,12 +73,9 @@ type props = {
   noneSelected: function,
   updateShoppingItem: function,
   deleteShoppingItem: function,
-
-  shopping: {
-    shop: string,
-    shoppingItem: string,
-    uid: string,
-  }
+  shoppingItemSelectedKey: string,
+  shoppingItemSelected: string,
+  shopSelected: string
 }
 
 type state = {}
@@ -110,24 +107,28 @@ class DetailsView extends Component <props, state> {
 
           <View style={styles.textArea}>
            <Text style={theme.cardContentStyle}>
-             {this.props.shopping.shop}
+             {this.props.shopSelected}
            </Text>
           </View>
 
           <View style={styles.textArea}>
            <Text style={theme.cardContentStyle}>
-             {this.props.shopping.shoppingItem}
+             {this.props.shoppingItemSelected}
            </Text>
           </View>
 
           <View>
               <TouchableOpacity style={styles.sections}
-              onPress={() => {this.props.updateShoppingItem(this.props.shopping) }}>
+              onPress={() => { this.props.updateShoppingItem()
+                                (this.props.shoppingItemSelectedKey,
+                                this.props.shoppingItemSelected,
+                                this.props.shopSelected) }}>
                  <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>EDIT</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sections}
-                  onPress={() => { this.props.deleteShoppingItem(this.props.shopping.uid)}}>
+                  onPress={() => { this.props.deleteShoppingItem
+                                  (this.props.shopping.shoppingItemSelectedKey)}}>
                  <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>DELETE</Text>
               </TouchableOpacity>
@@ -139,10 +140,8 @@ class DetailsView extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  return {
-      shopping: state.shoppingItemSelected,
-      toUpdate: state.toUpdate,
-   }
+  const { shoppingItemSelectedKey, shoppingItemSelected, shopSelected } = state
+  return ({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected })
 }
 
 export default connect(mapStateToProps, actions)(DetailsView)

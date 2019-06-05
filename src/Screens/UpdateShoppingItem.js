@@ -49,9 +49,9 @@ const UpdateButton = MKButton.coloredButton()
 type props = {
   saveShoppingItem: function,
   formUpdate: function,
-  shop: string,
-  shoppingItem: string,
-  uid: string,
+  shoppingItemSelectedKey: String,
+  shoppingItemSelected: String,
+  shopSelected: string
   }
 
 type state = {}
@@ -69,8 +69,8 @@ class UpdateShoppingItem extends Component <props, state>{
   }
 
   onUpdatePress() {
-    const { shop, shoppingItem, uid } = this.props
-    this.props.saveShoppingItem({ shop, shoppingItem, uid })
+    const { shoppingItemSelectedKey, shoppingItemSelected, shopSelected } = this.props
+    this.props.saveShoppingItem({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected })
   }
 
   render() {
@@ -84,7 +84,7 @@ class UpdateShoppingItem extends Component <props, state>{
               tintColor={MKColor.Teal}
               value={this.props.shop}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'shop', value})}
+                this.props.formUpdate({prop: 'shopSelected', value})}
           />
           <MKTextField
               textInputStyle={styles.fieldStyles}
@@ -92,7 +92,7 @@ class UpdateShoppingItem extends Component <props, state>{
               tintColor={MKColor.Teal}
               value={this.props.shoppingItem}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'shoppingItem', value})}
+                this.props.formUpdate({prop: 'shoppingItemSelected', value})}
           />
         <View style={styles.update}>
             <UpdateButton onPress={this.onUpdatePress.bind(this)}/>
@@ -104,8 +104,8 @@ class UpdateShoppingItem extends Component <props, state>{
 }
 
 const mapStateToProps = state => {
-  const { shop, shoppingItem, uid} = state
-  return ({ shop, shoppingItem, uid})
+  const { shoppingItemSelectedKey, shoppingItemSelected, shopSelected } = state
+  return ({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected })
 }
 
 export default connect(mapStateToProps, actions)(UpdateShoppingItem)

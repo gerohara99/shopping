@@ -9,6 +9,7 @@ import { Text, View, StyleSheet, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import ShopItem from './ShopItem'
+import * as actions from '../actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -76,4 +77,4 @@ const shops =
   }
 }
 
-export default connect(mapStateToProps)(ShopList)
+export default connect(mapStateToProps,actions)(ShopList)

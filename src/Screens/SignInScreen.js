@@ -49,13 +49,12 @@ const styles = StyleSheet.create({
 
 type props = {
   signIn: function,
+  email: String,
+  password: String
+
 }
 
-type state = {
-  email: String,
-  password: String,
-  loading: Boolean,
-}
+type state = {}
 
 class SignInScreen extends Component <props, state> {
 
@@ -64,20 +63,23 @@ class SignInScreen extends Component <props, state> {
     const { email, password } = this.props
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(
-        this.props.signIn(),
-        this.props.navigation.navigate('HomeScreen'))
+      .then( 
+          this.props.signIn(currentUser),
+          this.props.loadInitialShoppingItems(),
+          this.props.navigation.navigate('HomeScreen')
+      )
       .catch(() => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
           .then(
-            this.props.signIn(),
-            this.props.navigation.navigate('HomeScreen'))
+              this.props.signIn(),
+              this.props.navigation.navigate('HomeScreen')
+            )
           .catch((error) => {(
             alert(error.message),
             this.props.navigation.navigate('SignInScreen'))
-          })
-      })
-  }
+            })
+        })
+    }
 
   renderLoader() {
     const { loading } = this.props
@@ -122,8 +124,8 @@ class SignInScreen extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  const { email, password, loading } = state
-  return ({ email, password, loading  })
+  const { email, password } = state
+  return ({ email, password })
 }
 
 export default connect(mapStateToProps, actions)(SignInScreen)

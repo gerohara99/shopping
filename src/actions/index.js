@@ -7,9 +7,18 @@
 import firebase from 'firebase'
 
 export const signIn = () => {
-  return {
-    type: 'SIGN_IN',
-  }
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      return {
+        type: 'SIGN_IN',
+        payload: { currentUser: user.uid }
+      }  
+
+    } else {
+      console.log("no user logged in")
+    }
+  })
 }
 
 export const signOut = () => {
@@ -18,11 +27,11 @@ export const signOut = () => {
   }
 }
 
-
-export const selectShoppingItem = (shoppingItemId) => {
+export const selectShoppingItem = 
+  ({prop, value}) => {
     return {
         type: 'SELECTED_SHOPPING_ITEM',
-        payload: shoppingItemId,
+        payload: {prop, value}
     }
 }
 
@@ -40,11 +49,10 @@ export const formUpdate = ({ prop, value }) => {
 }
 
 export const createNewShoppingItem
-  = ({ shop, shoppingItem }) => {
-    const { currentUser } = firebase.auth()
+  = ({ shoppingItem, shop }) => {
 
     return(dispatch) => {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
+      firebase.database().ref(`/users/${this.props.currentUser.user.uid}/shopping`)
         .push({ shop, shoppingItem })
       .catch(error => {
         console.log("Firebase Error - ", error)
@@ -56,10 +64,9 @@ export const createNewShoppingItem
 }
 
 export const loadInitialShoppingItems = () => {
-  const { currentUser } = firebase.auth()
 
     return(dispatch) => {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
+      firebase.database().ref(`/users/${this.props.currentUser.user.uid}/shopping`)
       .on('value',snapshot => {
         dispatch({type: 'INITIAL_FETCH', payload: snapshot.val()})
         }, error => {
@@ -68,11 +75,10 @@ export const loadInitialShoppingItems = () => {
       )
     }
 }
-export const deleteShoppingItem = (uid) => {
-  const { currentUser } = firebase.auth()
+export const deleteShoppingItem = (shoppingItemSelectedKey) => {
   return(dispatch) => {
     try {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping/${uid}`)
+      firebase.database().ref(`/users/${this.props.currentUser.user.uid}/shopping/${shoppingItemSelectedKey}`)
       .remove()
       .then(() => { dispatch({ type: 'DELETE_SHOPPING_ITEM'})})
     } catch (error) {
@@ -82,21 +88,20 @@ export const deleteShoppingItem = (uid) => {
 }
 
 
-export const updateShoppingItem = (shoppingItemSelected) => {
+export const updateShoppingItem = (prop, value) => {
   return {
     type: 'UPDATE_SHOPPING_ITEM',
-    payload: shoppingItemSelected,
+    payload: { prop, value },
   }
 }
 
 export const saveShoppingItem
-  = ({ shop, shoppingItem, uid}) => {
-  const { currentUser } = firebase.auth()
+  = ({ shoppingItem, shop }) => {
 
   return(dispatch) => {
     try {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping/${uid}`)
-        .set({ shop, shoppingItem, uid})
+      firebase.database().ref(`/users/${this.props.currentUser.user.uid}/shopping/${uid}`)
+        .set({ shop, shoppingItem })
       .then(() => { dispatch({ type: 'SAVE_SHOPPING_ITEM'})})
     } catch (error) {
       console.log("Firebase Error - ", error)

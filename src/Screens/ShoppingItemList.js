@@ -5,12 +5,11 @@
  */
 
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ListView } from 'react-native'
+import { Text, View, StyleSheet, ListView, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import ShoppingItem from './ShoppingItem'
 import ShoppingItemDetail from './ShoppingItemDetail'
-import { loadInitialShoppingItems } from '../actions'
+import * as actions from '../actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -26,10 +25,15 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginTop: 30,
   },
+  title: {
+    top: 20,
+    left: 10,
+    fontSize: 20,
+    marginTop: 20,
+  }
 })
 
 type props = {
-  loadInitialShoppingItems: function,
   detailView: boolean,
   shoppingItems: {}
 }
@@ -37,27 +41,31 @@ type state = {}
 
 class ShoppingItemList extends Component<props, state> {
 
-  componentWillMount() {
-    this.props.loadInitialShoppingItems()
-  }
-
   renderInitialView() {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
-    });
-    this.dataSource = ds.cloneWithRows(this.props.shoppingItems);
+    })
+    
+    this.dataSource = ds.cloneWithRows(this.props.shoppingItems)
 
     if (this.props.detailView === true) {
       return (
-        <ShoppingItemDetail />
-      )
+        <ShoppingItemDetail />)
+        
     } else {
       return (
         <ListView
           enableEmptySections={true}
           dataSource={this.dataSource}
           renderRow={(rowData) =>
-            <ShoppingItem shoppingItems={rowData} />}
+
+            <TouchableWithoutFeedback onPress={() => this.props.selectShoppingItem(rowData)} >
+
+              <View>
+                <Text style={[styles.title]}>{rowData.shoppingItem} </Text>
+              </View>
+            </TouchableWithoutFeedback>
+            }
         />)
     }
   }
@@ -78,7 +86,7 @@ const mapStateToProps = state => {
   return {
     shoppingItems,
     detailView: state.detailView,
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, { loadInitialShoppingItems })(ShoppingItemList)
+export default connect(mapStateToProps,actions)(ShoppingItemList)
