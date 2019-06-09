@@ -1,7 +1,7 @@
 const initialState = {
     email: '',
     password: '',
-    currentUser : {},
+    currentUser : '',
     shoppingItems: [],
     shoppingItemKeySelected: null,
     shoppingItemSelected: '',

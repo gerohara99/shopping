@@ -63,22 +63,19 @@ class SignInScreen extends Component <props, state> {
     const { email, password } = this.props
 
     firebase.auth().signInWithEmailAndPassword(email, password)
+      .catch(() => {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .catch((error) => {
+            (
+              alert(error.message),
+              this.props.navigation.navigate('SignInScreen'))
+          })
+      })
       .then( 
-          this.props.signIn(currentUser),
+          this.props.signIn(),
           this.props.loadInitialShoppingItems(),
           this.props.navigation.navigate('HomeScreen')
       )
-      .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(
-              this.props.signIn(),
-              this.props.navigation.navigate('HomeScreen')
-            )
-          .catch((error) => {(
-            alert(error.message),
-            this.props.navigation.navigate('SignInScreen'))
-            })
-        })
     }
 
   renderLoader() {
