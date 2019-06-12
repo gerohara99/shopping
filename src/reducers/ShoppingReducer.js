@@ -34,9 +34,9 @@ export default (state = initialState, action) => {
         return {
           ...state,
           detailView: true,
-          shoppingItemKeySelected: action.payload.uid,
-          shoppingItemSelected: action.payload.shoppingItem,
-          shopSelected: action.payload.shop
+          shoppingItemKeySelected: action.payload.shoppingItemKeySelected,
+          shoppingItemSelected: action.payload.shoppingItemSelected,
+          shopSelected: action.payload.shopSelected
         }
         
       case 'NONE_SELECTED': 

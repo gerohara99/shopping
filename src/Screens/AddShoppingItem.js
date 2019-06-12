@@ -54,8 +54,8 @@ type state = {}
 class AddShoppingItem extends Component <props, state> {
 
   onAddPress() {
-    const { shop, shoppingItem }= this.props
-    this.props.createNewShoppingItem({ shop, shoppingItem })
+    const { shopSelected, shoppingItemSelected }= this.props
+    this.props.createNewShoppingItem({ shopSelected, shoppingItemSelected })
     this.props.navigation.navigate('HomeScreen')
   }
 
@@ -68,17 +68,17 @@ class AddShoppingItem extends Component <props, state> {
               textInputStyle={styles.fieldStyles}
               placeholder={'Shop....'}
               tintColor={MKColor.Teal}
-              value={this.props.shop}
+              value={this.props.shopSelected}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'shop', value})}
+                this.props.formUpdate({prop: 'shopSelected', value})}
           />
           <MKTextField
               textInputStyle={styles.fieldStyles}
               placeholder={'Shopping Item....'}
               tintColor={MKColor.Teal}
-              value={this.props.shoppingItem}
+              value={this.props.shoppingItemSelected}
               onChangeText={value =>
-                this.props.formUpdate({prop: 'shoppingItem', value})}
+                this.props.formUpdate({prop: 'shoppingItemSelected', value})}
           />
           <View style={styles.add}>
             <AddButton onPress={this.onAddPress.bind(this)}/>
@@ -90,8 +90,8 @@ class AddShoppingItem extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  const { shop, shoppingItem } = state
-  return ({shop, shoppingItem})
+  const { shopSelected, shoppingItemSelected } = state
+  return ({shopSelected, shoppingItemSelected})
 }
 
 export default connect(mapStateToProps, actions)(AddShoppingItem)

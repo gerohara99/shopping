@@ -46,10 +46,14 @@ export const formUpdate = ({ prop, value }) => {
 }
 
 export const createNewShoppingItem
-  = ({ shoppingItem, shop }) => {
+  = ({ shoppingItemSelected, shopSelected }) => {
+
+    const { currentUser } = firebase.auth()
+    const shop = shopSelected
+    const shoppingItem = shoppingItemSelected
 
     return(dispatch) => {
-      firebase.database().ref(`/users/${this.props.currentUser}/shopping`)
+      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
         .push({ shop, shoppingItem })
       .catch(error => {
         console.log("Firebase Error - ", error)
@@ -61,9 +65,9 @@ export const createNewShoppingItem
 }
 
 export const loadInitialShoppingItems = () => {
-
+  const { currentUser } = firebase.auth()
     return(dispatch) => {
-      firebase.database().ref(`/users/${this.props.currentUser}/shopping`)
+      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
       .on('value',snapshot => {
         dispatch({type: 'INITIAL_FETCH', payload: snapshot.val()})
         }, error => {
@@ -73,9 +77,10 @@ export const loadInitialShoppingItems = () => {
     }
 }
 export const deleteShoppingItem = (shoppingItemSelectedKey) => {
+  const { currentUser } = firebase.auth()
   return(dispatch) => {
     try {
-      firebase.database().ref(`/users/${this.props.currentUser}/shopping/${shoppingItemSelectedKey}`)
+      firebase.database().ref(`/users/${currentUser.uid}/shopping/${shoppingItemSelectedKey}`)
       .remove()
       .then(() => { dispatch({ type: 'DELETE_SHOPPING_ITEM'})})
     } catch (error) {
@@ -93,12 +98,12 @@ export const updateShoppingItem = (prop, value) => {
 }
 
 export const saveShoppingItem
-  = ({ shoppingItem, shop }) => {
-
+   = ({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected }) => {
+    const { currentUser } = firebase.auth()
   return(dispatch) => {
     try {
-      firebase.database().ref(`/users/${this.props.currentUser}/shopping/${uid}`)
-        .set({ shop, shoppingItem })
+      firebase.database().ref(`/users/${currentUser.uid}/shopping/${shoppingItemSelectedKey}`)
+        .set({ shopSelected, shoppingItemSelected, shoppingItemSelectedKey })
       .then(() => { dispatch({ type: 'SAVE_SHOPPING_ITEM'})})
     } catch (error) {
       console.log("Firebase Error - ", error)
