@@ -3,7 +3,7 @@ const initialState = {
     password: '',
     currentUser : '',
     shoppingItems: [],
-    shoppingItemKeySelected: null,
+    shoppingItemSelectedKey: null,
     shoppingItemSelected: '',
     shopSelected: '',
     detailView: false,
@@ -34,16 +34,16 @@ export default (state = initialState, action) => {
         return {
           ...state,
           detailView: true,
-          shoppingItemKeySelected: action.payload.shoppingItemKeySelected,
-          shoppingItemSelected: action.payload.shoppingItemSelected,
-          shopSelected: action.payload.shopSelected
+          shoppingItemSelectedKey: action.payload.uid,
+          shoppingItemSelected: action.payload.shoppingItem,
+          shopSelected: action.payload.shop
         }
         
       case 'NONE_SELECTED': 
         return {
           ...state,
           detailView: false,
-          shoppingItemKeySelected: null,
+          shoppingItemSelectedKey: null,
           shoppingItemSelected: '',
           shopSelected: ''
         }
@@ -57,7 +57,7 @@ export default (state = initialState, action) => {
       case 'NEW_SHOPPING_ITEM': 
         return {
           ...state,
-          shoppingItemKeySelected: null,
+          shoppingItemSelectedKey: null,
           shoppingItemSelected: '',
           shopSelected: ''
         }
@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
           ...state,
           toUpdate: false,
           detailView: false,
-          shoppingItemKeySelected: null,
+          shoppingItemSelectedKey: null,
           shoppingItemSelected: '',
           shopSelected: ''
         }
@@ -89,7 +89,7 @@ export default (state = initialState, action) => {
         return {
           ...state,
           detailView: false,
-          shoppingItemKeySelected: null,
+          shoppingItemSelectedKey: null,
           shoppingItemSelected: '',
           shopSelected: ''
         }

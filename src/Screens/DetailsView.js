@@ -119,8 +119,8 @@ class DetailsView extends Component <props, state> {
 
           <View>
               <TouchableOpacity style={styles.sections}
-              onPress={() => { this.props.updateShoppingItem()
-                                (this.props.shoppingItemSelectedKey,
+              onPress={() => { this.props.updateShoppingItem(
+                                this.props.shoppingItemSelectedKey,
                                 this.props.shoppingItemSelected,
                                 this.props.shopSelected) }}>
                  <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
@@ -128,7 +128,7 @@ class DetailsView extends Component <props, state> {
               </TouchableOpacity>
               <TouchableOpacity style={styles.sections}
                   onPress={() => { this.props.deleteShoppingItem
-                                  (this.props.shopping.shoppingItemSelectedKey)}}>
+                                  (this.props.shoppingItemSelectedKey)}}>
                  <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>DELETE</Text>
               </TouchableOpacity>

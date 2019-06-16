@@ -25,10 +25,10 @@ export const signOut = () => {
 }
 
 export const selectShoppingItem = 
-  ({prop, value}) => {
+  (rowSelected) => {
     return {
         type: 'SELECTED_SHOPPING_ITEM',
-        payload: {prop, value}
+        payload: rowSelected,
     }
 }
 
@@ -51,10 +51,11 @@ export const createNewShoppingItem
     const { currentUser } = firebase.auth()
     const shop = shopSelected
     const shoppingItem = shoppingItemSelected
+    const uid = currentUser.uid
 
     return(dispatch) => {
       firebase.database().ref(`/users/${currentUser.uid}/shopping`)
-        .push({ shop, shoppingItem })
+        .push({ shop, shoppingItem, uid })
       .catch(error => {
         console.log("Firebase Error - ", error)
       })
@@ -100,10 +101,14 @@ export const updateShoppingItem = (prop, value) => {
 export const saveShoppingItem
    = ({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected }) => {
     const { currentUser } = firebase.auth()
+     const shop = shopSelected
+     const shoppingItem = shoppingItemSelected
+     const uid = shoppingItemSelectedKey
+
   return(dispatch) => {
     try {
       firebase.database().ref(`/users/${currentUser.uid}/shopping/${shoppingItemSelectedKey}`)
-        .set({ shopSelected, shoppingItemSelected, shoppingItemSelectedKey })
+        .set({ shop, shoppingItem, uid })
       .then(() => { dispatch({ type: 'SAVE_SHOPPING_ITEM'})})
     } catch (error) {
       console.log("Firebase Error - ", error)

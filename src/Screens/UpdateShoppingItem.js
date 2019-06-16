@@ -82,7 +82,7 @@ class UpdateShoppingItem extends Component <props, state>{
               textInputStyle={styles.fieldStyles}
               placeholder={'Shop....'}
               tintColor={MKColor.Teal}
-              value={this.props.shop}
+              value={this.props.shopSelected}
               onChangeText={value =>
                 this.props.formUpdate({prop: 'shopSelected', value})}
           />
@@ -90,7 +90,7 @@ class UpdateShoppingItem extends Component <props, state>{
               textInputStyle={styles.fieldStyles}
               placeholder={'Shopping Item....'}
               tintColor={MKColor.Teal}
-              value={this.props.shoppingItem}
+              value={this.props.shoppingItemSelected}
               onChangeText={value =>
                 this.props.formUpdate({prop: 'shoppingItemSelected', value})}
           />
