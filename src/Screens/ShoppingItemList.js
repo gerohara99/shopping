@@ -5,7 +5,8 @@
  */
 
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ListView, TouchableWithoutFeedback } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import ShoppingItemDetail from './ShoppingItemDetail'
@@ -35,47 +36,35 @@ const styles = StyleSheet.create({
 
 type props = {
   detailView: boolean,
-  shoppingItems: {}
+  shoppingItems: {},
+  selectShoppingItem: function
 }
 type state = {}
 
 class ShoppingItemList extends Component<props, state> {
-
-  renderInitialView() {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    })
-    
-    this.dataSource = ds.cloneWithRows(this.props.shoppingItems)
-
-    if (this.props.detailView === true) {
+  render() {
+    if ( this.props.detailView ) {
       return (
-        <ShoppingItemDetail />)
-        
+        <View style={styles.container}>
+          <Text style={styles.screenTitle}> Shopping Items </Text>
+          <ShoppingItemDetail />
+        </View>
+      )
     } else {
       return (
-        <ListView
-          enableEmptySections={true}
-          dataSource={this.dataSource}
-          renderRow={(rowData) =>
-
-            <TouchableWithoutFeedback onPress={() => this.props.selectShoppingItem(rowData)} >
-
-              <View>
-                <Text style={[styles.title]}>{rowData.shoppingItem} </Text>
-              </View>
-            </TouchableWithoutFeedback>
-            }
-        />)
-    }
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.screenTitle}> Shopping Items </Text>
-        {this.renderInitialView()}
-      </View>
-    );
+        <View style={styles.container}>
+          <Text style={styles.screenTitle}> Shopping Items </Text>
+          <FlatList
+            data={this.props.shoppingItems}
+            renderItem={({ item }) => (
+              <ListItem  onPress={()=>this.props.selectShoppingItem(item)}>
+                <Text>style={styles.title} {item.shoppingItem}</Text>
+              </ListItem>
+            )}
+          />
+        </View>
+      )
+    } 
   }
 }
 

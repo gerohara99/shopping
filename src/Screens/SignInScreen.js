@@ -4,9 +4,9 @@
  * @flow
  */
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
-import { navigation } from 'react-navigation';
+//import { navigation } from 'react-navigation';
 import Loader from './Loader'
 import firebase from 'firebase'
 import { connect } from 'react-redux'
@@ -63,19 +63,28 @@ class SignInScreen extends Component <props, state> {
     const { email, password } = this.props
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .catch((error) => {
-            (
-              alert(error.message),
-              this.props.navigation.navigate('SignInScreen'))
-          })
+      .catch((error) => {
+        switch (error.code) {
+          case "auth/network-request-failed":
+            Alert.alert("Error connecting to Database please try later"),
+            this.props.navigation.navigate('SignInScreen')
+            break
+          case "auth/invalid-email":
+            Alert.alert("Email address badly formatted"),
+            this.props.navigation.navigate('SignInScreen')
+            break
+          default:
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+              .catch((error) => {(
+                Alert.alert(error.message),
+                this.props.navigation.navigate('SignInScreen'))
+                })
+              .then(
+                this.props.signIn(),
+                this.props.loadInitialShoppingItems(),
+                this.props.navigation.navigate('HomeScreen'))
+        }
       })
-      .then( 
-          this.props.signIn(),
-          this.props.loadInitialShoppingItems(),
-          this.props.navigation.navigate('HomeScreen')
-      )
     }
 
   renderLoader() {

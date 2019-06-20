@@ -5,7 +5,8 @@
  */
 
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ListView } from 'react-native'
+import { Text, View, StyleSheet, FlatList } from 'react-native'
+import { ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import ShopItem from './ShopItem'
@@ -34,22 +35,17 @@ type props = {
 type state = {}
 
 class ShopList extends Component <props, state>{
-
   render() {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    });
-    this.dataSource = ds.cloneWithRows(this.props.shops);
-
     return (
       <View style={styles.container}>
         <Text style={styles.screenTitle}> Shopping Items By Shop </Text>
-        <ListView
-          enableEmptySections={true}
-          dataSource={this.dataSource}
-          renderRow={(rowData) =>
-            <ShopItem shops={rowData} />
-          }
+        <FlatList
+          data={this.props.shoppingItems}
+          renderItem={({ item }) => (
+            <ListItem >
+              <ShopItem shops={item} />
+            </ListItem>
+          )}
         />
       </View>
     )
