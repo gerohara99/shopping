@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 20,
         paddingRight: 20,
-        justifyContent: 'space-between',
     },
     fieldStyles: {
         height: 40,
