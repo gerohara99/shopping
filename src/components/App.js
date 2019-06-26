@@ -45,25 +45,25 @@ const Tabs = createBottomTabNavigator(
     ShopList: {
       screen: ShopList,
       navigationOptions: {
-        tabBarLabel: "ShopList",
+        tabBarLabel: "Shopping",
         tabBarIcon: ({ tintColor }) => (
-          <Entypo name="shop" size={30} color={tintColor} />
+          <AntDesign name="shoppingcart" size={30} color={tintColor} />
         )
       }
     },
     ShoppingItemList: {
       screen: ShoppingItemList,
       navigationOptions: {
-        tabBarLabel: "ShoppingItemList",
+        tabBarLabel: "Edit/Delete",
         tabBarIcon: ({ tintColor }) => (
-          <AntDesign name="shoppingcart" size={30} color={tintColor} />
+          <AntDesign name="edit" size={30} color={tintColor} />
         )
       }
     },
     AddShoppingItem: {
       screen: AddShoppingItem,
       navigationOptions: {
-        tabBarLabel: "AddShoppingItem",
+        tabBarLabel: "Add",
         tabBarIcon: ({ tintColor }) => (
           <Entypo name="add-to-list" size={30} color={tintColor} />
         )

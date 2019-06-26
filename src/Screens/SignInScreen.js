@@ -105,7 +105,7 @@ class SignInScreen extends Component <props, state> {
         <Text style={title}>Login or create an account</Text>
         <MKTextField
           textInputStyle={fieldStyles}
-          placeholder={'Email....'}
+          placeholder={'Household Email....'}
           tintColor={MKColor.Teal}
           value={this.props.email}
           onChangeText={value =>

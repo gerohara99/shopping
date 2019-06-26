@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, SectionList } from 'react-native'
+import { ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as actions from '../actions'
@@ -22,31 +23,42 @@ const styles = StyleSheet.create({
     top: 20,
     left: 10,
     fontSize: 20,
-    marginTop: 20,
+    marginTop: 50,
   },
   sectionTitle: {
     top: 20,
     left: 10,
     fontSize: 30,
-    marginTop: 30,
+    marginTop: 20,
+    marginBottom: 10,
   }
 })
 
 type props = {
-  shops: {}
+  shops: {},
+  deleteShoppingItem: function
 }
 
 type state = {}
 
 class ShopList extends Component <props, state>{
   renderItem = (item) => {
-    return<Text style={styles.title}>{item.item.shoppingItem}</Text>
+    return(
+      <ListItem
+        title={item.item.shoppingItem}
+        onPress={() => this.deleteShopping(item.item)}>
+      </ListItem>)
   }
 
   renderHeader = (headerItem) => {
     return (<Text 
               style={styles.sectionTitle}>{headerItem.section.key}
             </Text>)
+  }
+
+  deleteShopping = (item) => {
+    this.props.selectShoppingItem(item)
+    this.props.deleteShoppingItem()
   }
 
   render() {
