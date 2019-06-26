@@ -21,9 +21,10 @@ export default (state = initialState, action) => {
           currentUser: action.payload
         }
         
-      case 'SIGN_OUT':
+      case 'SIGN_OUT': {
         return initialState        
-    
+      }
+      
       case 'INITIAL_FETCH': 
         return {
           ...state,

@@ -6,15 +6,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Alert } from 'react-native'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
-//import { navigation } from 'react-navigation';
 import Loader from './Loader'
 import firebase from 'firebase'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-
-const SignInButton = MKButton.coloredButton()
-    .withText('SIGN IN')
-    .build()
 
 const styles = StyleSheet.create({
     form: {
@@ -44,23 +39,27 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingTop: 10,
         paddingBottom: 10,
-    },
+    }
 })
+
+const SignInButton = MKButton.coloredButton()
+  .withText('SIGN IN')
+  .build()
 
 type props = {
   signIn: function,
-  email: String,
-  password: String
-
+  email: string,
+  password: string,
 }
 
 type state = {}
 
 class SignInScreen extends Component <props, state> {
 
-  
   onButtonPress() {
     const { email, password } = this.props
+
+    if (email && password) {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((error) => {
@@ -75,17 +74,17 @@ class SignInScreen extends Component <props, state> {
             break
           default:
             firebase.auth().createUserWithEmailAndPassword(email, password)
-              .catch((error) => {(
+              .catch((error) => {
                 Alert.alert(error.message),
-                this.props.navigation.navigate('SignInScreen'))
-                })
-              .then(
+                this.props.navigation.navigate('SignInScreen')
+              }).then(
                 this.props.signIn(),
-                this.props.loadInitialShoppingItems(),
                 this.props.navigation.navigate('HomeScreen'))
         }
-      })
-    }
+      }).then(
+          this.props.signIn(),
+          this.props.navigation.navigate('HomeScreen')) 
+    }}
 
   renderLoader() {
     const { loading } = this.props
@@ -93,18 +92,19 @@ class SignInScreen extends Component <props, state> {
     if (loading) {
         return <Loader size="large"/>;
     } else {
-        return <SignInButton onPress={this.onButtonPress.bind(this)} />
-    }
-  }
+        return <SignInButton onPress={
+            this.onButtonPress.bind(this)} />
+      }
+  }  
 
   render() {
-    const { form, fieldStyles, loginButtonArea } = styles
+    const { form, fieldStyles, loginButtonArea, title } = styles
 
     return (
       <View style={form}>
-        <Text style={styles.title}>Login or create an account</Text>
+        <Text style={title}>Login or create an account</Text>
         <MKTextField
-          textInputStyle={styles.fieldStyles}
+          textInputStyle={fieldStyles}
           placeholder={'Email....'}
           tintColor={MKColor.Teal}
           value={this.props.email}
@@ -113,7 +113,7 @@ class SignInScreen extends Component <props, state> {
         />
 
         <MKTextField
-          textInputStyle={styles.fieldStyles}
+          textInputStyle={fieldStyles}
           placeholder={'Password....'}
           tintColor={MKColor.Teal}
           value={this.props.password}
@@ -125,7 +125,7 @@ class SignInScreen extends Component <props, state> {
             {this.renderLoader()}
         </View>
       </View>
-    );
+    )
   }
 }
 

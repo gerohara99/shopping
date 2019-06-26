@@ -119,16 +119,12 @@ class DetailsView extends Component <props, state> {
 
           <View>
               <TouchableOpacity style={styles.sections}
-              onPress={() => { this.props.updateShoppingItem(
-                                this.props.shoppingItemSelectedKey,
-                                this.props.shoppingItemSelected,
-                                this.props.shopSelected) }}>
+              onPress={() => { this.props.updateShoppingItem()}}>
                  <MaterialIcon name={'autorenew'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>EDIT</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sections}
-                  onPress={() => { this.props.deleteShoppingItem
-                                  (this.props.shoppingItemSelectedKey)}}>
+                  onPress={() => { this.props.deleteShoppingItem()}}>
                  <MaterialIcon name={'delete-forever'} size={40} style={styles.editIcon}/>
                  <Text style={theme.cardContentStyle}>DELETE</Text>
               </TouchableOpacity>

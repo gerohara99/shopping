@@ -8,14 +8,15 @@ import firebase from 'firebase'
 
 export const signIn = () => {
   return (dispatch) => {
-      firebase.auth().onAuthStateChanged(function (user) {
-        if(user) {
-          dispatch ({ type: 'SIGN_IN', payload: user.uid})
-        } else {
-          console.log("no user logged in")
-        }
-      })
-    } 
+    firebase.auth().onAuthStateChanged(async user => {
+      await dispatch({ type: 'SIGN_IN', payload: user.uid })
+    
+      firebase.database().ref(`/users/${user.uid}/shopping`)
+        .on('value', async snapshot => {
+          await dispatch({ type: 'INITIAL_FETCH', payload: snapshot.val() })
+        }, error => { alert(error)})
+    }) 
+  }
 }
 
 export const signOut = () => {
@@ -45,19 +46,17 @@ export const formUpdate = ({ prop, value }) => {
     }
 }
 
-export const createNewShoppingItem
-  = ({ shoppingItemSelected, shopSelected }) => {
+export const createNewShoppingItem = () => {
 
-    const { currentUser } = firebase.auth()
-    const shop = shopSelected
-    const shoppingItem = shoppingItemSelected
-    const uid = currentUser.uid
+    return(dispatch, getState) => {
+      const state = getState()
+      const shop = state.shopSelected
+      const shoppingItem = state.shoppingItemSelected
 
-    return(dispatch) => {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
-        .push({ shop, shoppingItem, uid })
+      firebase.database().ref(`/users/${state.currentUser}/shopping`)
+        .push({ shop, shoppingItem })
       .catch(error => {
-        console.log("Firebase Error - ", error)
+        alert("Firebase Error - ", error)
       })
       .then(() => {
         dispatch({type: 'NEW_SHOPPING_ITEM'})
@@ -65,27 +64,15 @@ export const createNewShoppingItem
     }
 }
 
-export const loadInitialShoppingItems = () => {
-  const { currentUser } = firebase.auth()
-    return(dispatch) => {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping`)
-      .on('value',snapshot => {
-        dispatch({type: 'INITIAL_FETCH', payload: snapshot.val()})
-        }, error => {
-          console.log(error)
-        }
-      )
-    }
-}
-export const deleteShoppingItem = (shoppingItemSelectedKey) => {
-  const { currentUser } = firebase.auth()
-  return(dispatch) => {
+export const deleteShoppingItem = () => {
+  return(dispatch, getState) => {
+    const state = getState()
     try {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping/${shoppingItemSelectedKey}`)
+      firebase.database().ref(`/users/${state.currentUser}/shopping/${state.shoppingItemSelectedKey}`)
       .remove()
       .then(() => { dispatch({ type: 'DELETE_SHOPPING_ITEM'})})
     } catch (error) {
-      console.log("Firebase Error - ", error)
+      alert("Firebase Error - ", error)
     }
   }
 }
@@ -98,20 +85,18 @@ export const updateShoppingItem = (prop, value) => {
   }
 }
 
-export const saveShoppingItem
-   = ({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected }) => {
-    const { currentUser } = firebase.auth()
-     const shop = shopSelected
-     const shoppingItem = shoppingItemSelected
-     const uid = shoppingItemSelectedKey
+export const saveShoppingItem = () => {
 
-  return(dispatch) => {
+  return(dispatch, getState) => {
+    const state = getState()
+    const shop = state.shopSelected
+    const shoppingItem =state.shoppingItemSelected
     try {
-      firebase.database().ref(`/users/${currentUser.uid}/shopping/${shoppingItemSelectedKey}`)
-        .set({ shop, shoppingItem, uid })
+      firebase.database().ref(`/users/${state.currentUser}/shopping/${state.shoppingItemSelectedKey}`)
+        .set({ shop, shoppingItem })
       .then(() => { dispatch({ type: 'SAVE_SHOPPING_ITEM'})})
     } catch (error) {
-      console.log("Firebase Error - ", error)
+      alert("Firebase Error - ", error)
     }
   }
 }

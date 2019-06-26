@@ -5,6 +5,7 @@
  */
 import { Component } from 'react'
 import { connect } from 'react-redux'
+import { Alert } from 'react-native'
 import * as actions from '../actions'
 import firebase from 'firebase'
 
@@ -13,16 +14,22 @@ type props = {
 }
 
 class SignOutScreen extends Component {
-  
+
   componentWillMount() {
+
+    Alert.alert('You have been logged out.')
+
     firebase.auth().signOut()
+      .catch((error) => {
+          Alert.alert(error.message)
+      })
+
     this.props.signOut()
-    alert('You have been logged out.')
     this.props.navigation.navigate('SignInScreen')
   }
 
   render() {
-    return ( null )
+    return (null)
   }
 }
 
