@@ -8,10 +8,10 @@ import  React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { persistStore, autoRehydrate } from 'redux-persist'
+import { persistStore, persistReducer } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'remote-redux-devtools'
 import firebase from 'firebase'
 
 import {
@@ -28,6 +28,27 @@ import SignInScreen from '../Screens/SignInScreen'
 import ShopList from '../Screens/ShopList'
 import ShoppingItemList from '../Screens/ShoppingItemList'
 import AddShoppingItem from '../Screens/AddShoppingItem'
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage
+}
+
+const persistedReducer = persistReducer(persistConfig, reducers)
+
+const composeEnhancers =
+  typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose
+
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk),
+)
+
+const store = createStore(persistedReducer, enhancer)
+const persistor = persistStore(store)
 
 const Tabs = createBottomTabNavigator(
   {
@@ -88,35 +109,14 @@ export default class App extends Component {
       storageBucket: "shopping-44bca.appspot.com",
       messagingSenderId: "783286480391"
     })
-
-    store = this.configureStore()
-  }
-
-  configureStore() {
-
-    const composeEnhancers =
-      typeof window === 'object' &&
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-      }) : compose
-
-    const enhancer = composeEnhancers(
-      applyMiddleware([thunk, localStorageMiddleware,logger]),
-      autoRehydrate()
-    )
-
-    const store = createStore(reducers, enhancer, getInitialState())
-    
-    persistStore(store, { storage: AsyncStorage })
-   
-    return store
   }
 
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <PersistGate persistor = {persistor}>
+          <AppContainer />
+        </PersistGate>
       </Provider>
     )
   }

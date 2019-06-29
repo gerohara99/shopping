@@ -21,17 +21,8 @@ export default (state = initialState, action) => {
           currentUser: action.payload
         }
         
-      case 'SIGN_OUT': 
-        return {
-        ...state,
-        currentUser: '',
-        shoppingItems: [],
-        shoppingItemSelectedKey: null,
-        shoppingItemSelected: '',
-        shopSelected: '',
-        detailView: false,
-        toUpdate: false,
-        loading: false        
+      case 'SIGN_OUT': {
+        return initialState       
       }
       
       case 'INITIAL_FETCH': 
