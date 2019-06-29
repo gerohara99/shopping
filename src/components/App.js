@@ -5,8 +5,10 @@
  */
 
 import  React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
+import { persistStore, autoRehydrate } from 'redux-persist'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'remote-redux-devtools'
@@ -26,19 +28,6 @@ import SignInScreen from '../Screens/SignInScreen'
 import ShopList from '../Screens/ShopList'
 import ShoppingItemList from '../Screens/ShoppingItemList'
 import AddShoppingItem from '../Screens/AddShoppingItem'
-
-const composeEnhancers =
-  typeof window === 'object' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-    }) : compose
-
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk),
-)
-
-const store = createStore(reducers, enhancer);
 
 const Tabs = createBottomTabNavigator(
   {
@@ -99,6 +88,29 @@ export default class App extends Component {
       storageBucket: "shopping-44bca.appspot.com",
       messagingSenderId: "783286480391"
     })
+
+    store = this.configureStore()
+  }
+
+  configureStore() {
+
+    const composeEnhancers =
+      typeof window === 'object' &&
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      }) : compose
+
+    const enhancer = composeEnhancers(
+      applyMiddleware([thunk, localStorageMiddleware,logger]),
+      autoRehydrate()
+    )
+
+    const store = createStore(reducers, enhancer, getInitialState())
+    
+    persistStore(store, { storage: AsyncStorage })
+   
+    return store
   }
 
   render() {

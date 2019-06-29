@@ -22,6 +22,7 @@
     "react-redux": "^6.0.0",
     "react-slider": "^0.11.2",
     "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
     "remote-redux-devtools": "^0.5.16",
     "ws": "^7.0.0"
