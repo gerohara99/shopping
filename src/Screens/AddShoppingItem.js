@@ -54,8 +54,10 @@ type state = {}
 class AddShoppingItem extends Component <props, state> {
 
   onAddPress() {
-    this.props.createNewShoppingItem()
-    this.props.navigation.navigate('HomeScreen')
+    if (this.props.shopSelected && this.props.shoppingItemSelected) {
+      this.props.createNewShoppingItem()
+      this.props.navigation.navigate('HomeScreen')
+    }
   }
 
   render() {

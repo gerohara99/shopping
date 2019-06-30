@@ -60,7 +60,7 @@ class SignInScreen extends Component <props, state> {
 
     if (email && password) {
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
+      firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((error) => {
         switch (error.code) {
           case "auth/network-request-failed":
@@ -83,7 +83,8 @@ class SignInScreen extends Component <props, state> {
       }).then(
           this.props.signIn(),
           this.props.navigation.navigate('HomeScreen')) 
-    }}
+    }
+  }
 
   renderLoader() {
     const { loading } = this.props

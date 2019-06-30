@@ -8,14 +8,15 @@ import firebase from 'firebase'
 
 export const signIn = () => {
   return (dispatch) => {
-    firebase.auth().onAuthStateChanged(async user => {
-      await dispatch({ type: 'SIGN_IN', payload: user.uid })
-    
-      firebase.database().ref(`/users/${user.uid}/shopping`)
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        {dispatch({ type: 'SIGN_IN', payload: user.uid })}
+        firebase.database().ref(`/users/${user.uid}/shopping`)
         .on('value', async snapshot => {
-          await dispatch({ type: 'INITIAL_FETCH', payload: snapshot.val() })
-        }, error => { alert(error)})
-    }) 
+          dispatch({ type: 'INITIAL_FETCH', payload: snapshot.val() })
+        })
+      }
+    })
   }
 }
 
