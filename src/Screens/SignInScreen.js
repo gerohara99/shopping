@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 })
 
 const SignInButton = MKButton.coloredButton()
-  .withText('SIGN IN')
+  .withText('SIGN IN / CREATE ACCOUNT')
   .build()
 
 type props = {

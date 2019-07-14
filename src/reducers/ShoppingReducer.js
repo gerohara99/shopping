@@ -59,8 +59,7 @@ export default (state = initialState, action) => {
         return {
           ...state,
           shoppingItemSelectedKey: null,
-          shoppingItemSelected: '',
-          shopSelected: ''
+          shoppingItemSelected: ''
         }
         
       case 'SAVE_SHOPPING_ITEM': 
