@@ -6,6 +6,16 @@
 
 import firebase from 'firebase'
 
+export const reauthenticate = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    var user = firebase.auth().currentUser;
+    var cred = firebase.auth.EmailAuthProvider.credential(
+      state.email, state.password)
+    return user.reauthenticateWithCredential(cred);
+  }
+}
+
 export const signIn = () => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -17,6 +27,32 @@ export const signIn = () => {
         })
       }
     })
+  }
+}
+
+export const changePassword = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    reauthenticate(state.password).then(() => {
+      var user = firebase.auth().currentUser;
+      user.updatePassword(state.newPassword).then(() => {
+          alert.alert("Password updated!");
+        }).catch((error) => { alert.alert(error) })
+    }).catch((error) => { alert.alert(error); })
+    dispatch({ type: 'NEW_PASSWORD' })
+  }
+}
+
+export const changeEmail = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    reauthenticate(state.password).then(() => {
+      var user = firebase.auth().currentUser;
+      user.updateEmail(state.newEmail).then(() => {
+        alert.alert("Email updated!");
+      }).catch((error) => { alert.alert(error) })
+    }).catch((error) => { alert.alert(error) })
+  dispatch({ type: 'NEW_PASSWORD' })
   }
 }
 

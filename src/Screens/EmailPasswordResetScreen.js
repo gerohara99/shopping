@@ -7,7 +7,6 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, Alert } from 'react-native'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import Loader from './Loader'
-import firebase from 'firebase'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 
@@ -41,50 +40,40 @@ const styles = StyleSheet.create({
     }
 })
 
-const SignInButton = MKButton.coloredButton()
-  .withText('SIGN IN / CREATE ACCOUNT')
+const resetButton = MKButton.coloredButton()
+  .withText('RESET')
   .build()
 
 type props = {
-  signIn: function,
+  changeEmail: function,
+  changePassword: function,
   email: string,
+  newEmail: String,
   password: string,
+  newPassword: string
 }
 
 type state = {}
 
-class SignInScreen extends Component <props, state> {
+class EmailPasswordResetScreen extends Component <props, state> {
 
   onButtonPress() {
-    const { email, password } = this.props
+    const { email, password, newEmail, newPassword } = this.props
 
-    if (email && password) {
+    if (newPassword) {
+      this.props.changePassword(),
+      this.props.navigation.navigate('HomeScreen')
 
-      firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch((error) => {
-        switch (error.code) {
-          case "auth/network-request-failed":
-            Alert.alert("Error connecting to Database please try later"),
-            this.props.navigation.navigate('SignInScreen')
-            break
-          case "auth/invalid-email":
-            Alert.alert("Email address badly formatted"),
-            this.props.navigation.navigate('SignInScreen')
-            break
-          default:
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-              .catch((error) => {
-                Alert.alert(error.message),
-                this.props.navigation.navigate('SignInScreen')
-              }).then(
-                this.props.signIn(),
-                this.props.navigation.navigate('HomeScreen'))
-        }
-      }).then(
-          this.props.signIn(),
-          this.props.navigation.navigate('HomeScreen')) 
     }
+
+    if (newEmail) {
+      this.props.changeEmail(),
+      this.props.navigation.navigate('HomeScreen')
+
+    }
+
   }
+
 
   renderLoader() {
     const { loading } = this.props
@@ -92,7 +81,7 @@ class SignInScreen extends Component <props, state> {
     if (loading) {
         return <Loader size="large"/>;
     } else {
-        return <SignInButton onPress={
+        return <resetButton onPress={
             this.onButtonPress.bind(this)} />
       }
   }  
@@ -105,32 +94,22 @@ class SignInScreen extends Component <props, state> {
         <Text style={title}>Login or create an account</Text>
         <MKTextField
           textInputStyle={fieldStyles}
-          placeholder={'Household Email....'}
+          placeholder={'New Household Email....'}
           tintColor={MKColor.Teal}
-          value={this.props.email}
+          value={this.props.newEmail}
           onChangeText={value =>
             this.props.formUpdate({ prop: 'email', value })}
         />
 
         <MKTextField
           textInputStyle={fieldStyles}
-          placeholder={'Password....'}
+          placeholder={'New Password....'}
           tintColor={MKColor.Teal}
-          value={this.props.password}
+          value={this.props.newPassword}
           onChangeText={value =>
             this.props.formUpdate({ prop: 'password', value })}
           password={true}
         />
-
-        <MKTextField
-          textInputStyle={fieldStyles}
-          placeholder={'Reset Email or Password ?'}
-          tintColor={MKColor.Teal}
-          onChangeText={value =>
-            this.props.formUpdate({ prop: 'password', value })}
-          password={true}
-        />
-
         <View style={loginButtonArea}>
             {this.renderLoader()}
         </View>
@@ -140,8 +119,8 @@ class SignInScreen extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  const { email, password } = state
-  return ({ email, password })
+  const { newEmail, newPassword } = state
+  return ({ newEmail, newPassword })
 }
 
-export default connect(mapStateToProps, actions)(SignInScreen)
+export default connect(mapStateToProps, actions)(EmailPasswordResetScreen)

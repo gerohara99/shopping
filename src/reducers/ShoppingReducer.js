@@ -1,7 +1,9 @@
 const initialState = {
     email: '',
+    newEmail: '',
     password: '',
-    currentUser : '',
+    newPassword: '',
+    currentUser: '',
     shoppingItems: [],
     shoppingItemSelectedKey: null,
     shoppingItemSelected: '',
@@ -24,7 +26,15 @@ export default (state = initialState, action) => {
       case 'SIGN_OUT': {
         return initialState       
       }
+
+      case 'newEmail': {
+        return initialState
+      }
       
+    case 'newPassword': {
+      return initialState
+    }
+
       case 'INITIAL_FETCH': 
         return {
           ...state,
