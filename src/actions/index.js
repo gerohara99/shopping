@@ -24,6 +24,16 @@ export const forgotPassword = () => {
   return (dispatch, getState) => {
       const state = getState()
       firebase.auth().sendPasswordResetEmail(state.email)
+      .catch((error) => {
+        switch (error.code) {
+          case "auth/user-not-found":
+            alert("Email " + state.email + " not registered on database")
+            break
+          default: 
+            alert("Firebase Error - " + error.code)
+            break
+        }
+      })
       .then(() => {alert('Reset instructions sent to ' + state.email)})
       dispatch({ type: 'NEW_PASSWORD' })
     }

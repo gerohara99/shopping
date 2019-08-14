@@ -9,6 +9,7 @@ import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import Loader from './Loader'
 import firebase from 'firebase'
 import { connect } from 'react-redux'
+
 import * as actions from '../actions'
 
 const styles = StyleSheet.create({
@@ -24,8 +25,12 @@ const styles = StyleSheet.create({
         color: MKColor.Orange,
         width: 200,
     },
-    loginButtonArea: {
+    buttonArea: {
         marginTop: 30,
+    },
+    createAccount: {
+      marginTop: 50,
+      color: MKColor.Orange,
     },
     forgotPassword: {
       marginTop: 50,
@@ -46,12 +51,13 @@ const styles = StyleSheet.create({
 })
 
 const SignInButton = MKButton.coloredButton()
-  .withText('SIGN IN / CREATE ACCOUNT')
+  .withText('SIGN IN')
   .build()
 
 type props = {
   signIn: function,
   forgotPassword: function,
+  CreateAccountScreen: function,
   email: string,
   password: string,
 }
@@ -64,7 +70,6 @@ class SignInScreen extends Component <props, state> {
     const { email, password } = this.props
 
     if (email && password) {
-
       firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((error) => {
         switch (error.code) {
@@ -77,17 +82,12 @@ class SignInScreen extends Component <props, state> {
             this.props.navigation.navigate('SignInScreen')
             break
           default:
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-              .catch((error) => {
-                Alert.alert(error.message),
-                this.props.navigation.navigate('SignInScreen')
-              }).then(
-                this.props.signIn(),
-                this.props.navigation.navigate('HomeScreen'))
+            Alert.alert(error.code),
+            this.props.navigation.navigate('SignInScreen')
+            break
         }
       }).then(
-          this.props.signIn(),
-          this.props.navigation.navigate('HomeScreen')) 
+        this.props.navigation.navigate('HomeScreen')) 
     }
   }
 
@@ -98,12 +98,28 @@ class SignInScreen extends Component <props, state> {
       this.props.forgotPassword()
       this.props.navigation.navigate('SignInScreen')
     } else {
-      alert.alert("Please enter email address to send reset instructions to")
+      Alert.alert("Please enter email address to send reset instructions to")
     }
   }
 
+  onCreateAccountPress() {
+    const { email, password } = this.props
+
+    if (email && password) {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch((error) => {
+        Alert.alert(error.message),
+        this.props.navigation.navigate('SignInScreen')
+      }).then(
+        this.props.signIn(),
+        this.props.navigation.navigate('HomeScreen'))
+    } else {
+        Alert.alert("Please enter email & password for accout to create")
+      }
+  }
+
   renderLoader() {
-    const { loginButtonArea, forgotPassword} = styles
+    const { buttonArea, forgotPassword, createAccount} = styles
     const { loading } = this.props
 
     if (loading) {
@@ -111,24 +127,30 @@ class SignInScreen extends Component <props, state> {
     } else {
         return (
           <View>
-            <SignInButton style={loginButtonArea}
+            <SignInButton style={buttonArea}
               onPress={this.onSignInButtonPress.bind(this)}/>
 
             <Text style={forgotPassword}
-              onPress={this.onForgotPassword.bind(this)} >
+              onPress={this.onForgotPassword.bind(this)}>
               Forgot Password?
             </Text>
+
+            <Text style={createAccount}
+              onPress={this.onCreateAccountPress.bind(this)}>
+              Create Account?
+            </Text>
+
           </View>
         )
       }
   }  
 
   render() {
-    const { form, fieldStyles, loginButtonArea, forgotPassword, title } = styles
+    const { form, fieldStyles,title } = styles
 
     return (
       <View style={form}>
-        <Text style={title}>Login or create an account</Text>
+        <Text style={title}>Login</Text>
         <MKTextField
           textInputStyle={fieldStyles}
           placeholder={'Household Email....'}

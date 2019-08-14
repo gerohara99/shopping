@@ -5,11 +5,11 @@
  */
 
 import  React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
+import { AsyncStorage } from 'react-native'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
 import firebase from 'firebase'
