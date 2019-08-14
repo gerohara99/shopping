@@ -6,16 +6,6 @@
 
 import firebase from 'firebase'
 
-export const reauthenticate = () => {
-  return (dispatch, getState) => {
-    const state = getState()
-    var user = firebase.auth().currentUser;
-    var cred = firebase.auth.EmailAuthProvider.credential(
-      state.email, state.password)
-    return user.reauthenticateWithCredential(cred);
-  }
-}
-
 export const signIn = () => {
   return (dispatch) => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -30,30 +20,13 @@ export const signIn = () => {
   }
 }
 
-export const changePassword = () => {
+export const forgotPassword = () => {
   return (dispatch, getState) => {
-    const state = getState()
-    reauthenticate(state.password).then(() => {
-      var user = firebase.auth().currentUser;
-      user.updatePassword(state.newPassword).then(() => {
-          alert.alert("Password updated!");
-        }).catch((error) => { alert.alert(error) })
-    }).catch((error) => { alert.alert(error); })
-    dispatch({ type: 'NEW_PASSWORD' })
-  }
-}
-
-export const changeEmail = () => {
-  return (dispatch, getState) => {
-    const state = getState()
-    reauthenticate(state.password).then(() => {
-      var user = firebase.auth().currentUser;
-      user.updateEmail(state.newEmail).then(() => {
-        alert.alert("Email updated!");
-      }).catch((error) => { alert.alert(error) })
-    }).catch((error) => { alert.alert(error) })
-  dispatch({ type: 'NEW_PASSWORD' })
-  }
+      const state = getState()
+      firebase.auth().sendPasswordResetEmail(state.email)
+      .then(() => {alert('Reset instructions sent to ' + state.email)})
+      dispatch({ type: 'NEW_PASSWORD' })
+    }
 }
 
 export const signOut = () => {
@@ -87,8 +60,12 @@ export const createNewShoppingItem = () => {
 
     return(dispatch, getState) => {
       const state = getState()
-      const shop = state.shopSelected
+      var shop = state.shopSelected
       const shoppingItem = state.shoppingItemSelected
+
+      if (!shop) {
+        shop = "[Any Shop]"
+      }
 
       firebase.database().ref(`/users/${state.currentUser}/shopping`)
         .push({ shop, shoppingItem })

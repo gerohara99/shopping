@@ -1,8 +1,6 @@
 const initialState = {
     email: '',
-    newEmail: '',
     password: '',
-    newPassword: '',
     currentUser: '',
     shoppingItems: [],
     shoppingItemSelectedKey: null,
@@ -16,39 +14,36 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
 
-      case 'SIGN_IN':
-        return {
-          ...state,
-          loading: true,
-          currentUser: action.payload
-        }
+    case 'SIGN_IN':
+      return {
+        ...state,
+        loading: true,
+        currentUser: action.payload
+      }
         
       case 'SIGN_OUT': {
         return initialState       
       }
 
-      case 'newEmail': {
-        return initialState
+      case 'NEW_PASSWORD': 
+        return { 
+        ...state,
       }
-      
-    case 'newPassword': {
-      return initialState
-    }
 
       case 'INITIAL_FETCH': 
         return {
-          ...state,
-          shoppingItems: action.payload
-        }
+        ...state,
+        shoppingItems: action.payload
+      }
         
       case 'SELECTED_SHOPPING_ITEM': 
         return {
-          ...state,
-          detailView: true,
-          shoppingItemSelectedKey: action.payload.uid,
-          shoppingItemSelected: action.payload.shoppingItem,
-          shopSelected: action.payload.shop
-        }
+        ...state,
+        detailView: true,
+        shoppingItemSelectedKey: action.payload.uid,
+        shoppingItemSelected: action.payload.shoppingItem,
+        shopSelected: action.payload.shop
+      }
         
       case 'NONE_SELECTED': 
         return {

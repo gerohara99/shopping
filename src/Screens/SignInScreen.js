@@ -25,7 +25,11 @@ const styles = StyleSheet.create({
         width: 200,
     },
     loginButtonArea: {
-        marginTop: 20,
+        marginTop: 30,
+    },
+    forgotPassword: {
+      marginTop: 50,
+      color: MKColor.Orange,
     },
     container: {
         flex: 1,
@@ -47,6 +51,7 @@ const SignInButton = MKButton.coloredButton()
 
 type props = {
   signIn: function,
+  forgotPassword: function,
   email: string,
   password: string,
 }
@@ -55,7 +60,7 @@ type state = {}
 
 class SignInScreen extends Component <props, state> {
 
-  onButtonPress() {
+  onSignInButtonPress() {
     const { email, password } = this.props
 
     if (email && password) {
@@ -86,19 +91,40 @@ class SignInScreen extends Component <props, state> {
     }
   }
 
+  onForgotPassword() {
+    const { email } = this.props
+
+    if (email) {
+      this.props.forgotPassword()
+      this.props.navigation.navigate('SignInScreen')
+    } else {
+      alert.alert("Please enter email address to send reset instructions to")
+    }
+  }
+
   renderLoader() {
+    const { loginButtonArea, forgotPassword} = styles
     const { loading } = this.props
 
     if (loading) {
-        return <Loader size="large"/>;
+        return <Loader size="large"/>
     } else {
-        return <SignInButton onPress={
-            this.onButtonPress.bind(this)} />
+        return (
+          <View>
+            <SignInButton style={loginButtonArea}
+              onPress={this.onSignInButtonPress.bind(this)}/>
+
+            <Text style={forgotPassword}
+              onPress={this.onForgotPassword.bind(this)} >
+              Forgot Password?
+            </Text>
+          </View>
+        )
       }
   }  
 
   render() {
-    const { form, fieldStyles, loginButtonArea, title } = styles
+    const { form, fieldStyles, loginButtonArea, forgotPassword, title } = styles
 
     return (
       <View style={form}>
@@ -122,16 +148,7 @@ class SignInScreen extends Component <props, state> {
           password={true}
         />
 
-        <MKTextField
-          textInputStyle={fieldStyles}
-          placeholder={'Reset Email or Password ?'}
-          tintColor={MKColor.Teal}
-          onChangeText={value =>
-            this.props.formUpdate({ prop: 'password', value })}
-          password={true}
-        />
-
-        <View style={loginButtonArea}>
+        <View>
             {this.renderLoader()}
         </View>
       </View>

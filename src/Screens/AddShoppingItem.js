@@ -67,7 +67,7 @@ class AddShoppingItem extends Component <props, state> {
           <Text style={styles.title}>Add a new Shopping Item</Text>
           <MKTextField
               textInputStyle={styles.fieldStyles}
-              placeholder={'Shop....'}
+              placeholder={'Shop.... if left empty will be set as [Any Shop]'}
               tintColor={MKColor.Teal}
               value={this.props.shopSelected}
               onChangeText={value =>

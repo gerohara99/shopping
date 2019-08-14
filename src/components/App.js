@@ -23,6 +23,7 @@ import {
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
+
 import SignOutScreen from '../Screens/SignOutScreen'
 import SignInScreen from '../Screens/SignInScreen'
 import ShopList from '../Screens/ShopList'
@@ -87,7 +88,7 @@ const Tabs = createBottomTabNavigator(
           <SimpleLineIcons name="logout" size={30} color={tintColor} />
         )
       }
-    }
+    },
   }
 )
 
