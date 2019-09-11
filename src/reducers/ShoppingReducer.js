@@ -8,7 +8,8 @@ const initialState = {
     shopSelected: '',
     detailView: false,
     toUpdate: false,
-    loading: false
+    loading: false,
+    isLoggedIn: false
 }
 
 export default (state = initialState, action) => {
@@ -18,6 +19,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        isLoggedIn: true,
         currentUser: action.payload
       }
         

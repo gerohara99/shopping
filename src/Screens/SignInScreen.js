@@ -66,6 +66,14 @@ type state = {}
 
 class SignInScreen extends Component <props, state> {
 
+  componentWillMount() {
+    const { isLoggedIn } = this.props
+
+    if (isLoggedIn) {
+      this.props.navigation.navigate('HomeScreen')
+    }
+  }
+
   onSignInButtonPress() {
     const { email, password } = this.props
 
@@ -87,6 +95,7 @@ class SignInScreen extends Component <props, state> {
             break
         }
       }).then(
+        this.props.signIn(),
         this.props.navigation.navigate('HomeScreen')) 
     }
   }
@@ -179,8 +188,8 @@ class SignInScreen extends Component <props, state> {
 }
 
 const mapStateToProps = state => {
-  const { email, password } = state
-  return ({ email, password })
+  const { email, password, isLoggedIn } = state
+  return ({ email, password, isLoggedIn })
 }
 
 export default connect(mapStateToProps, actions)(SignInScreen)

@@ -7,27 +7,27 @@
     "test": "jest"
   },
   "dependencies": {
-    "firebase": "^5.7.2",
-    "lodash": "^4.17.14",
-    "react": "^16.6.3",
-    "react-native": "^0.59.4",
-    "react-native-elements": "^1.1.0",
-    "react-native-gesture-handler": "^1.1.0",
+    "firebase": "^5.11.1",
+    "lodash": "^4.17.15",
+    "react": "^16.9.0",
+    "react-native": "^0.59.10",
+    "react-native-elements": "^1.2.0",
+    "react-native-gesture-handler": "^1.4.1",
     "react-native-material-kit": "^0.5.1",
     "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^3.9.2",
-    "react-redux": "^6.0.0",
-    "redux": "^4.0.1",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.4",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
     "babel-preset-react-native": "1.9.1",
-    "metro-react-native-babel-preset": "^0.51.0",
     "eslint": "^5.16.0",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react": "^7.14.3",
     "jest": "23.6.0",
+    "metro-react-native-babel-preset": "^0.51.1",
     "react-test-renderer": "16.6.3"
   },
   "jest": {

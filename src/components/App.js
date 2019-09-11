@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import { AsyncStorage } from 'react-native'
+import storage from 'redux-persist/lib/storage'
 import reducers from '../reducers/ShoppingReducer'
 import thunk from 'redux-thunk'
 import firebase from 'firebase'
@@ -32,10 +32,11 @@ import AddShoppingItem from '../Screens/AddShoppingItem'
 
 const persistConfig = {
   key: 'root',
-  storage: AsyncStorage
+  storage,
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
+
 
 const composeEnhancers =
   typeof window === 'object' &&
@@ -115,7 +116,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate persistor = {persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <AppContainer />
         </PersistGate>
       </Provider>
