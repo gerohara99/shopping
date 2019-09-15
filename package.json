@@ -7,9 +7,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "acorn": "^6.3.0",
     "firebase": "^5.11.1",
     "lodash": "^4.17.15",
-    "react": "^16.9.0",
+    "react": "^16.8.3",
     "react-native": "^0.59.10",
     "react-native-elements": "^1.2.0",
     "react-native-gesture-handler": "^1.4.1",
