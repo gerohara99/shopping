@@ -69,9 +69,9 @@ class SignInScreen extends Component <props, state> {
   componentWillMount() {
     const { isLoggedIn } = this.props
 
-    if (isLoggedIn) {
-      this.props.navigation.navigate('HomeScreen')
-    }
+//    if (isLoggedIn) {
+//      this.props.navigation.navigate('HomeScreen')
+//    }
   }
 
   onSignInButtonPress() {
