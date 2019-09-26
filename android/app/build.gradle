@@ -102,7 +102,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.shopping"
+        applicationId 'com.groovyshopping'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

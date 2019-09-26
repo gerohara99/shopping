@@ -62,7 +62,10 @@ class AddShoppingItem extends Component <props, state> {
 
   render() {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}
+                  keyboardShouldPersistTaps ='always'
+                  keyboardDismissMode='on-drag'>
+                  
         <View style={styles.form}>
           <Text style={styles.title}>Add a new Shopping Item</Text>
           <MKTextField
