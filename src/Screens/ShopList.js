@@ -19,18 +19,25 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 20,
   },
-  title: {
+  headerTitle: {
     top: 20,
     left: 10,
     fontSize: 20,
-    marginTop: 50,
+    marginTop: 0,
   },
   sectionTitle: {
     top: 20,
     left: 10,
     fontSize: 30,
     marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 20,
+  },
+  shoppingItem: {
+    top: 0,
+    left: 0,
+    fontSize: 10,
+    marginTop: 20,
+    marginBottom: 20,
   }
 })
 
@@ -42,18 +49,25 @@ type props = {
 type state = {}
 
 class ShopList extends Component <props, state>{
+  
+  renderHeader = (headerItem) => {
+    return (<Text
+      style={styles.headerTitle}>{headerItem.section.key}
+    </Text>)
+  }
+
+  renderSection = () => {
+    return (<Text
+      style={styles.sectionTitle}>{headerItem.section.key}
+    </Text>)
+  }
+
   renderItem = (item) => {
     return(
-      <ListItem
+      <ListItem style={styles.shoppingItem}
         title={item.item.shoppingItem}
         onPress={() => this.deleteShopping(item.item)}>
       </ListItem>)
-  }
-
-  renderHeader = (headerItem) => {
-    return (<Text 
-              style={styles.sectionTitle}>{headerItem.section.key}
-            </Text>)
   }
 
   deleteShopping = (item) => {

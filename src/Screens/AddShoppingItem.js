@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView, Image } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
@@ -56,12 +56,13 @@ class AddShoppingItem extends Component <props, state> {
   onAddPress() {
     if (this.props.shoppingItemSelected) {
       this.props.createNewShoppingItem()
-      this.props.navigation.navigate('HomeScreen')
+      this.props.navigation.navigate('ShopList')
     }
   }
 
   render() {
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView showsVerticalScrollIndicator={false}
                   keyboardShouldPersistTaps ='always'
                   keyboardDismissMode='on-drag'>
@@ -89,6 +90,7 @@ class AddShoppingItem extends Component <props, state> {
           </View>
         </View>
       </ScrollView>
+      </TouchableWithoutFeedback>
     );
   }
 }

@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
@@ -71,10 +71,12 @@ class UpdateShoppingItem extends Component <props, state>{
   onUpdatePress() {
     const { shoppingItemSelectedKey, shoppingItemSelected, shopSelected } = this.props
     this.props.saveShoppingItem({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected })
+    this.props.navigation.navigate('ShopList')
   }
 
   render() {
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
           <Text style={styles.title}>Update Shopping Item</Text>
@@ -99,6 +101,7 @@ class UpdateShoppingItem extends Component <props, state>{
           </View>
         </View>
       </ScrollView>
+      </TouchableWithoutFeedback>
     );
   }
 }
