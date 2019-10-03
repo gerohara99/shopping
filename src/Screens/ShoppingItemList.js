@@ -24,12 +24,14 @@ const styles = StyleSheet.create({
     top: 20,
     left: 10,
     fontSize: 20,
-    marginTop: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
   screenTitle: {
     top: 20,
     left: 10,
     fontSize: 30,
+    fontWeight: 'bold',
     marginTop: 30,
   },
 })
@@ -44,36 +46,36 @@ type state = {}
 class ShoppingItemList extends Component<props, state> {
 
   renderHeader = () => {
-    return (<Text style={styles.screenTitle}> Shopping Items </Text>)
+    return (<Text style={styles.screenTitle}> Edit / Delete </Text>)
   }
 
   render() {
-    if ( this.props.detailView ) {
+    if (this.props.detailView) {
       return (
         <View style={styles.container}>
-          <Text style={styles.screenTitle}> Shopping Items </Text>
+          <Text style={styles.screenTitle}> Edit / Delete </Text>
           <ShoppingItemDetail />
         </View>
       )
     } else {
       return (
-          <FlatList
-            ListHeaderComponent={this.renderHeader}
-            data={this.props.shoppingItems}
-            renderItem={({ item }) => (
+        <FlatList
+          ListHeaderComponent={this.renderHeader}
+          data={this.props.shoppingItems}
+          renderItem={({ item }) => (
             <View style={styles.container}>
               <ListItem
-                title = {item.shoppingItem}
+                title={item.shoppingItem}
                 onPress={() => this.props.selectShoppingItem(item)}>
               </ListItem>
             </View>
-            )}
-            keyExtractor={(item) => item.uid}
-          />
+          )}
+          keyExtractor={(item) => item.uid}
+        />
       )
     }
-  } 
-} 
+  }
+}
 
 const mapStateToProps = state => {
   const shoppingItems = _.map(state.shoppingItems, (val, uid) => {
@@ -85,4 +87,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps,actions)(ShoppingItemList)
+export default connect(mapStateToProps, actions)(ShoppingItemList)

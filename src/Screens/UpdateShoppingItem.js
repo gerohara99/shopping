@@ -6,7 +6,6 @@
 
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
-import Icon from 'react-native-vector-icons/EvilIcons'
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
@@ -49,6 +48,7 @@ const UpdateButton = MKButton.coloredButton()
 type props = {
   saveShoppingItem: function,
   formUpdate: function,
+  navigation: function,
   shoppingItemSelectedKey: String,
   shoppingItemSelected: String,
   shopSelected: string
@@ -57,27 +57,19 @@ type props = {
 type state = {}
 
 class UpdateShoppingItem extends Component <props, state>{
-  static navigationOptions = {
-    tabBarLabel: 'Add Shopping',
-    tabBarIcon: ({ tintColor }) => (
-      <Icon
-        name={'plus'}
-        size={70}
-        style={[{ color: tintColor }]}
-      />
-    )
-  }
 
   onUpdatePress() {
     const { shoppingItemSelectedKey, shoppingItemSelected, shopSelected } = this.props
     this.props.saveShoppingItem({ shoppingItemSelectedKey, shoppingItemSelected, shopSelected })
-    this.props.navigation.navigate('ShopList')
   }
 
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}
+                  keyboardShouldPersistTaps='always'
+                  keyboardDismissMode='on-drag'
+      >
         <View style={styles.form}>
           <Text style={styles.title}>Update Shopping Item</Text>
           <MKTextField
