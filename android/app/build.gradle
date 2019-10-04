@@ -105,8 +105,8 @@ android {
         applicationId 'com.groovyshopping'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 17
-        versionName "1.7"
+        versionCode 171
+        versionName "1.7.1"
     }
     splits {
         abi {
