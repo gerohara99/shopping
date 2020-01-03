@@ -7,6 +7,7 @@
  */
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, SectionList, TouchableOpacity } from 'react-native'
+import { CheckBox } from 'react-native-elements'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as actions from '../actions'
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     top: 20,
     left: 10,
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   sectionTitle: {
     top: 20,
@@ -32,11 +33,33 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 20,
+
   },
   shoppingItem: {
     left: 10,
-    fontSize: 15,
-    marginTop: 10,
+    fontSize: 25,
+  },
+  tableFormat: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: 10,
+  },
+  rowFormat: {
+    flex: 1,
+    alignSelf: 'stretch', 
+    flexDirection: 'row',
+  },
+  cellFormat: {
+    flex: 1, 
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  cb: {
+    marginLeft: 16,
+    marginTop: 57,
+    alignItems: 'center',
+    flex: 1
   }
 })
 
@@ -57,12 +80,19 @@ class ShopList extends Component<props, state>{
   
   renderItem = (item) => {
     return (
-      <TouchableOpacity
-        key={item.id}
-        onPress={() => this.deleteShopping(item.item)}>
-        <Text style={styles.shoppingItem}>
-          {item.item.shoppingItem}
-        </Text>
+      <TouchableOpacity key={item.id}>
+        <View style={styles.tableFormat}>
+          <View style={styles.rowFormat}>
+            <View style={styles.cellFormat} >
+              <Text style={styles.shoppingItem}>{item.item.shoppingItem}</Text>
+            </View>
+            <View style={styles.cellFormat} >
+              <CheckBox style={styles.cb}
+                onPress={() => this.deleteShopping(item.item)}
+              />
+            </View>
+          </View>
+        </View>
       </TouchableOpacity>
   )}    
 
